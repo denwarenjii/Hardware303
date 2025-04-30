@@ -47,8 +47,8 @@ use work.NCOConstants.all;
 
 entity NCO is
   generic (
-    input_wordsize  : integer;  -- Word size for Frequency and phase control words.
-    output_wordsize : integer   -- Word size for output.
+    input_wordsize  : integer := 16;  -- Word size for Frequency and phase control words.
+    output_wordsize : integer := 16  -- Word size for output.
   );
   port (
     FreqControlWord  : in std_logic_vector(input_wordsize - 1 downto 0);
