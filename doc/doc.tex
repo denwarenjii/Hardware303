@@ -220,8 +220,46 @@
         % This is stupid.
         \vspace{3mm}
         
+    
+    \newpage
 
     \section*{Digital Ladder Filter}
+
+    We first implement a Moog Ladder Filter in hardware and make modifications
+    to make it more similar to the diode ladder filter used in the TB-303.
+    
+    \begin{figure}[!ht]
+        \centering
+        \includegraphics[width=0.3\textwidth]{moog_ladder.png}
+        \caption{Moog Ladder Filter Schematic}
+        \label{fig:fig4}
+    \end{figure}
+
+
+    \begin{gather}
+        y_a(n) = y_a(n-1) + \frac{I_{ctl}}{C F_s} \left( tanh \left( \frac{x(n) - 4 r y_d(n-1)}{2 V_t} \right) - W_a(n-1) \right) \\
+        y_b(n) = y_b(n-1) + \frac{I_{ctl}}{C F_s} \left( W_a(n) - W_b(n-1)  \right) \\
+        y_c(n) = y_c(n-1) + \frac{I_{ctl}}{C F_s} \left( W_b(n) - W_c(n-1)  \right) \\
+        y_d(n) = y_d(n-1) + \frac{I_{ctl}}{C F_s} \left( W_c(n) - tanh\left( \frac{y_d(n-1)}{2 V_t} \right) \right)
+    \end{gather}
+
+    \medskip
+
+    where
+
+    \begin{itemize}
+        \item  $I_{ctl}$ is the control current for the filter.
+        \item  $C$ is the capacitance.
+        \item  $F_s$ is the sampling frequency.
+        \item  $V_t$ is the thermal voltage of the transistor (typically on the order of 10s of millivolts).
+        \item  $x(n)$ is the input, $y_a(n)$, $y_b(n)$, $y_c(n)$, $y_d(n)$ are the outputs of the individual filter stages.
+        \item  $r$ is resonance amount, $0 < r \leq 1$ 
+        \item  $W_{\{ a, b, c \}}(n) = tanh \left( \frac{y_{\{ a, b, c \}}(n)}{2 V_t} \right)$
+    \end{itemize}
+
+
+    This filter was tested in MatLab.
+
 
     \section*{Numerically Controlled Amplifier}
 
