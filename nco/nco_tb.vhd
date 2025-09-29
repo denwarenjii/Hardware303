@@ -103,7 +103,6 @@ begin
     FreqControlWord_TB <= FreqToControlWord(200.0);
     wait for 100 ms;
 
-
     WaveSel_TB <= WaveSel_SQUARE;
     wait for 100 ms;
 
@@ -132,5 +131,3 @@ begin
   end process OutputValues;
 
 end Testbench;
-
-
