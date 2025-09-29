@@ -1,0 +1,7 @@
+# .gitignore for nco directory
+
+# Ignore the test bench executable
+nco_tb
+
+# Ignore the work directory
+work/*
