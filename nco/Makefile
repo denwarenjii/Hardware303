@@ -2,16 +2,28 @@
 #
 # Makefile for nco block
 #
+# - Run `make all` to build everything but not run
+# - Run `make run` to build and run the simulation
+# - Run 'make plot` to output plot images
+#
+#
 # Author     Date       Comments
 # Chris M.   ??/??/??   Initial revision
 # Chris M.   09/28/25   Migrate to Gentoo setup.
 #
+#
 
-OSVVM_DIR = $(HOME)/VHDL_LIBS/GHDL-5.0.1/
+# On my PC, this is where I installed ghdl 6.0.0 with gcc code generation
+# GHDL = /opt/ghdl-6.0.0-dev/bin/ghdl
+
+ 
+GHDL = ghdl
+
+OSVVM_DIR = $(HOME)/VHDL_LIBS/GHDL-5.1.1
 
 GHDLFLAGS = --std=08 -Wuseless -Werror -fsynopsys --workdir=work -P$(OSVVM_DIR)
 
-RUNFLAGS= --vcd=work/NCO_TB.vcd --stop-time=3sec
+RUNFLAGS= --vcd=work/NCO_TB.vcd --stop-time=100sec
 
 SRC = nco.vhd nco_tb.vhd
 
@@ -19,18 +31,22 @@ SRC = nco.vhd nco_tb.vhd
 all:
 	$(MAKE) nco_tb
 
+# 
 nco_tb: nco.vhd nco_tb.vhd | work
-	ghdl -a $(GHDLFLAGS) nco.vhd
-	ghdl -a $(GHDLFLAGS) nco_tb.vhd
-	ghdl -e $(GHDLFLAGS) nco_tb
+	$(GHDL) -a $(GHDLFLAGS) nco.vhd
+	$(GHDL) -a $(GHDLFLAGS) nco_tb.vhd
+	$(GHDL) -e $(GHDLFLAGS) nco_tb
 
 run:  nco_tb
-	ghdl -r nco_tb $(RUNFLAGS) 
+	$(GHDL) -r nco_tb $(RUNFLAGS) 
 
 clean:
-	ghdl --clean --std=08 --workdir=work/
+	$(GHDL) --clean --std=08 --workdir=work/
 
 work:
 	mkdir -p work
+
+plot: | square.txt sawtooth.txt
+	python3 plot.py
 
 .PHONY: clean	

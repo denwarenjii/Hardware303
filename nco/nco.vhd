@@ -6,7 +6,9 @@
 -- the frequency control word. The frequency control word, f_i, is an n-bit
 -- word equal to (f * (2^n - 1)) / F_s, where f is the desired frequency, n is
 -- the number of bits in the NCO, and F_s is the sampling frequency (ie, the
--- clock rate). Note that the maximum output frequency must be less than or
+-- clock rate). 
+--
+-- Note that the maximum output frequency must be less than or
 -- equal to half of the sampling frequency according to Nyquist's Sampling
 -- thereom.
 --
@@ -48,8 +50,11 @@ library ieee;
 library std;
 library work;
 
+
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
+
+use std.textio.all;
 
 use work.NCOConstants.all;
 
@@ -80,14 +85,10 @@ architecture Dataflow of NCO is
   -- The phase accumulation threshold for a square wave with a duty cycle
   -- of 50 %.
   constant SQUARE_THRESHOLD : std_logic_vector(input_wordsize - 1 downto 0) :=
-      -- std_logic_vector(to_unsigned(((2**input_wordsize) / 2 - 1)), input_wordsize);
-      std_logic_vector(to_unsigned( ((2**input_wordsize) / 2 - 1), input_wordsize  ));
-
+      std_logic_vector(to_unsigned(((2**input_wordsize) / 2 - 1), input_wordsize));
 
   signal STARTING_PHASE_OFFSET : std_logic_vector(input_wordsize - 1 downto 0) :=
       (others => '0');
-
-      -- SQUARE_THRESHOLD;
 
   signal PhaseAccumulator : std_logic_vector(input_wordsize - 1 downto 0);
 
@@ -97,24 +98,33 @@ architecture Dataflow of NCO is
 
   -- Used to avoid ieee.numeric_std metavalues upon startup. Can be removed
   -- in simulation.
-  signal PhaseAccumulatorMux : std_logic_vector(input_wordsize - 1 downto 0) := (others => '0');
+  signal PhaseAccumulatorMux : std_logic_vector(input_wordsize - 1 downto 0) := 
+      (others => '0');
 
 begin
 
   SumPhase : process (Clk)
+    variable l : line;
   begin
     if rising_edge(Clk) then
 
+      -- Note that even without 'Reset', PhaseAccumulator will be zero on
+      -- startup in the FPGA, 
       if (Reset = '0') then
-        -- PhaseAccumulator <= (others => '0');
         PhaseAccumulator <= STARTING_PHASE_OFFSET;
       else
 
-        if (unsigned(MAX_VAL) - unsigned(FreqControlWord) < unsigned(PhaseAccumulator)) then
+        -- If incrementing the PhaseAccumulator this timestep causes the phase
+        -- accumulator to be > max, manually set it to zero. Otherwise, if we
+        -- are outputting a sawtooth and the phase accumulator overflows, we 
+        -- won't start at zero like we want to.
+        if (unsigned(PhaseAccumulator) > 
+            unsigned(MAX_VAL) - unsigned(FreqControlWord)) then
 
           PhaseAccumulator <= STARTING_PHASE_OFFSET;
 
         else
+          -- Increment the phase accumulator normally.
           PhaseAccumulator <= std_logic_vector(
                                 unsigned(FreqControlWord) + 
                                 unsigned(PhaseAccumulator)
