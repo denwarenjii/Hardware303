@@ -89,10 +89,16 @@ architecture Testbench of NCO_TB is
 
   signal UNITIALIZED : std_logic_vector(OUTPUT_WORDSIZE - 1 downto 0);
 
-  file OutputFile : text open write_mode is "out.txt";
+  signal ClockEn : boolean := true;
 
-  file SquareFile   : text open write_mode is "square.txt";
-  file SawtoothFile : text open write_mode is "sawtooth.txt";
+  file SawtoothFile : text;
+  file SquareFile   : text;
+
+  -- file OutputFile : text open write_mode is "out.txt";
+
+  -- file SquareFile   : text open write_mode is "square.txt";
+  -- file SawtoothFile : text open write_mode is "sawtooth.txt";
+
 
   pure function FreqToControlWord (freq : real) return std_logic_vector is
     variable result : real := 0.0;
@@ -104,7 +110,24 @@ architecture Testbench of NCO_TB is
     return std_logic_vector(to_unsigned(integer(result), INPUT_WORDSIZE));
   end function;
 
-  signal ClockEn : boolean := true;
+  -- Log to stdout and a file
+  --
+  procedure LogBoth(file f : text; msg : in string) is
+    variable l : line;
+    variable l_cpy : line;
+  begin
+    write(l, msg);
+    write(l_cpy, msg);
+    writeline(f, l_cpy);
+    writeline(output, l);
+  end procedure;
+
+  procedure Log(file f : text; msg : string) is
+    variable l : line;
+  begin
+    write(l, msg);
+    writeline(f, l);
+  end procedure;
 
 begin
 
@@ -141,8 +164,8 @@ begin
 
       wait;
 
-      file_close(SquareFile);
-      file_close(SawtoothFile);
+      -- file_close(SquareFile);
+      -- file_close(SawtoothFile);
 
     end if;
   end process GenClk;
@@ -154,6 +177,9 @@ begin
     variable l : line;
   begin
 
+    file_open(SawtoothFile, "sawtooth.txt", write_mode);
+    file_open(SquareFile, "square.txt", write_mode);
+
     -- Reset the NCO for a few clock cycles. Reset is active low.
     FreqControlWord_TB <= (others => '0');
 
@@ -164,18 +190,23 @@ begin
     wait for 3 * CLK_PERIOD;
 
     Reset_TB <= '1';
-    wait for CLK_PERIOD;
 
     for i in 0 to (TEST_FREQS'length  - 1) loop
 
-      write(l, "Testing sawtooth @ " & to_string(TEST_FREQS(i), "%7.4f") & " Hz" & LF);
-      writeline(SawtoothFile, l);
-
+      -- Note that time/time = integer
+      LogBoth(SawtoothFile, 
+              "[" & to_string(now / 1 ms) & " ms] Testing sawtooth @ " &
+               to_string(TEST_FREQS(i), "%7.4f") & " Hz");
+               
       WaveSel_TB <= WaveSel_SAWTOOTH;
       FreqControlWord_TB <= FreqToControlWord(TEST_FREQS(i));
+
       wait for 100 ms;
 
-      write(l, "Testing square @ " & to_string(TEST_FREQS(i), "%7.4f") & " Hz" & LF);
+      LogBoth(SquareFile,
+              "[" & to_string(now / 1 ms) & " ms] Testing square @ " &
+              to_string(TEST_FREQS(i), "%7.4f") & " Hz");
+        
       writeline(SquareFile, l);
 
       WaveSel_TB <= WaveSel_SQUARE;
@@ -183,7 +214,7 @@ begin
 
     end loop;
 
-    write(l, string'("Sim completed with no failures" & LF));
+    write(l, string'("Sim completed"));
     writeline(output, l);
 
     ClockEn <= false;
@@ -199,9 +230,9 @@ begin
 
     if (rising_edge(Clk_TB)) then
 
-      if ((DigitalOut_TB /= UNITIALIZED)) then
-
-        write(l, to_integer(unsigned(DigitalOut_TB)));
+        if (Reset_TB = '1') then
+           
+          write(l, to_integer(unsigned(DigitalOut_TB)));
 
         if (WaveSel_TB = WaveSel_SQUARE) then
 
