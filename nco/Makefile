@@ -47,6 +47,6 @@ work:
 	mkdir -p work
 
 plot: | square.txt sawtooth.txt
-	python3 plot.py
+	python3 verify_nco.py
 
 .PHONY: clean	

@@ -81,6 +81,9 @@ architecture Testbench of NCO_TB is
   constant INPUT_WORDSIZE : integer := 16;
   constant OUTPUT_WORDSIZE : integer := 16;
 
+  constant ALL_U : std_logic_vector(INPUT_WORDSIZE - 1 downto 0) := (others => 'U');
+  constant ALL_X : std_logic_vector(INPUT_WORDSIZE - 1 downto 0) := (others => 'X');
+
   signal FreqControlWord_TB  : std_logic_vector(INPUT_WORDSIZE - 1 downto 0);
   signal WaveSel_TB          : std_logic;
   signal Clk_TB              : std_logic;
@@ -129,6 +132,7 @@ architecture Testbench of NCO_TB is
     writeline(f, l);
   end procedure;
 
+  
 begin
 
   -- Instantiate the Unit Under Test
@@ -206,8 +210,6 @@ begin
       LogBoth(SquareFile,
               "[" & to_string(now / 1 ms) & " ms] Testing square @ " &
               to_string(TEST_FREQS(i), "%7.4f") & " Hz");
-        
-      writeline(SquareFile, l);
 
       WaveSel_TB <= WaveSel_SQUARE;
       wait for 100 ms;
@@ -231,19 +233,21 @@ begin
     if (rising_edge(Clk_TB)) then
 
         if (Reset_TB = '1') then
-           
+          -- Write the current output of the NCO to the line buffer
           write(l, to_integer(unsigned(DigitalOut_TB)));
 
-        if (WaveSel_TB = WaveSel_SQUARE) then
+          assert ((DigitalOut_TB /= ALL_U) or (DigitalOut_TB /= ALL_X))
+          severity ERROR;
 
-          writeline(SquareFile, l);
+          if ((WaveSel_TB = WaveSel_SQUARE)) then
 
-        elsif (WaveSel_TB = WaveSel_SAWTOOTH) then
+            writeline(SquareFile, l);
 
-          writeline(SawtoothFile, l);
+          elsif (WaveSel_TB = WaveSel_SAWTOOTH) then
+              
+            writeline(SawtoothFile, l);
 
-        end if;
-
+          end if;
       end if;
     end if;
   end process OutputValues;
