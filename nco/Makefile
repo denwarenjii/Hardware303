@@ -42,6 +42,7 @@ run:  nco_tb
 
 clean:
 	$(GHDL) --clean --std=08 --workdir=work/
+	rm work/*
 
 work:
 	mkdir -p work
