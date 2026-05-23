@@ -46,7 +46,8 @@ RUN /ghdl-build/gcc-12.5.0/configure \
     --disable-libssp           \
     --disable-libgomp          \
     --disable-libquadmath      \
-    --enable-default-pie
+    --enable-default-pie       \
+    --enable-static
 
 WORKDIR /ghdl-build/gcc-objs
 RUN make -j$(nproc) && make install
