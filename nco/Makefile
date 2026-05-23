@@ -17,9 +17,9 @@
 # GHDL = /opt/ghdl-6.0.0-dev/bin/ghdl
 
  
-GHDL = ghdl
+GHDL = /usr/local/bin/ghdl
 
-OSVVM_DIR = $(HOME)/VHDL_LIBS/GHDL-5.1.1
+OSVVM_DIR = $(HOME)/VHDL_LIBS/GHDL-7.0.0
 
 GHDLFLAGS = --std=08 -Wuseless -Werror -fsynopsys --workdir=work -P$(OSVVM_DIR)
 
@@ -33,8 +33,8 @@ all:
 
 # 
 nco_tb: nco.vhd nco_tb.vhd | work
-	$(GHDL) -a $(GHDLFLAGS) nco.vhd
-	$(GHDL) -a $(GHDLFLAGS) nco_tb.vhd
+	$(GHDL) -a -fPIE $(GHDLFLAGS) nco.vhd
+	$(GHDL) -a -fPIE $(GHDLFLAGS) nco_tb.vhd
 	$(GHDL) -e $(GHDLFLAGS) nco_tb
 
 run:  nco_tb
