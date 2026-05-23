@@ -1,0 +1,36 @@
+name: Build GHDL and OSVVM
+ 
+on:
+  push:
+    paths:
+      # Trigger build when VHDL source files change
+      - '**.vhd'
+ 
+  workflow_dispatch:
+ 
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+ 
+      # - name: Build docker image
+      #   run: docker build -t ghdl .
+ 
+      - name: Build and extract
+        run: docker build --target=export --output=./artifacts .
+ 
+
+     - name: Extract artifacts
+        run: |
+          docker create --name tmp ghdl
+          docker cp tmp:/usr/local/bin/ghdl ./ghdl-7-dev
+          docker rm tmp
+ 
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ghdl-7-dev
+          path: ./artifacts/ghdl-7-dev
+

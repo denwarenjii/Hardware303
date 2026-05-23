@@ -66,3 +66,6 @@ RUN cp work/* $HOME/VHDL_LIBS/GHDL-7.0.0/osvvm/v08
 WORKDIR /Hardware303
 COPY nco .
 RUN make
+
+FROM scratch AS export
+COPY --from=builder /usr/local/bin/ghdl /ghdl-7-dev
