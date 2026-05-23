@@ -45,7 +45,8 @@ RUN /ghdl-build/gcc-12.5.0/configure \
     --disable-multilib         \
     --disable-libssp           \
     --disable-libgomp          \
-    --disable-libquadmath
+    --disable-libquadmath      \
+    --enable-default-pie
 
 WORKDIR /ghdl-build/gcc-objs
 RUN make -j$(nproc) && make install
@@ -57,7 +58,11 @@ WORKDIR /
 RUN git clone --recursive "https://github.com/OSVVM/OsvvmLibraries.git"
 
 WORKDIR /OsvvmLibraries/osvvm
-COPY build_osvvm.sh /build_osvvm.sh
-RUN chmod +x /build_osvvm.sh && /build_osvvm.sh
+COPY build_osvvm.sh .
+RUN chmod +x build_osvvm.sh && ./build_osvvm.sh
+RUN mkdir -p $HOME/VHDL_LIBS/GHDL-7.0.0/osvvm/v08
+RUN cp work/* $HOME/VHDL_LIBS/GHDL-7.0.0/osvvm/v08
 
-
+WORKDIR /Hardware303
+COPY nco .
+RUN make

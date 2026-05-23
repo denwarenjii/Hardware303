@@ -33,8 +33,8 @@ all:
 
 # 
 nco_tb: nco.vhd nco_tb.vhd | work
-	$(GHDL) -a -fPIE $(GHDLFLAGS) nco.vhd
-	$(GHDL) -a -fPIE $(GHDLFLAGS) nco_tb.vhd
+	$(GHDL) -a $(GHDLFLAGS) nco.vhd
+	$(GHDL) -a $(GHDLFLAGS) nco_tb.vhd
 	$(GHDL) -e $(GHDLFLAGS) nco_tb
 
 run:  nco_tb
@@ -42,7 +42,7 @@ run:  nco_tb
 
 clean:
 	$(GHDL) --clean --std=08 --workdir=work/
-	rm work/*
+	rm -rfd work/*
 
 work:
 	mkdir -p work

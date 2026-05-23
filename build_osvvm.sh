@@ -29,7 +29,10 @@ SRCS=(
 
 mkdir -p work osvvm
 
+pwd
+
 for src in "${SRCS[@]}"; do
     echo "$GHDL -a $GHDL_FLAGS $src"
     $GHDL -a $GHDL_FLAGS "$src"
 done
+
