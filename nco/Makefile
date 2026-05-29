@@ -39,7 +39,7 @@ nco_tb: nco.vhd nco_tb.vhd | work
 
 run:  nco_tb
 	$(GHDL) -r nco_tb $(RUNFLAGS) 
-
+	@echo "Running verify_nco.py"
 clean:
 	$(GHDL) --clean --std=08 --workdir=work/
 	rm -rfd work/*

@@ -13,6 +13,7 @@ RUN apt-get update && apt-get install -y \
     wget \
     flex \
     bison \
+    libgnat-14-dev \
     libgmp-dev \
     libmpfr-dev \
     libmpc-dev \
@@ -47,7 +48,8 @@ RUN /ghdl-build/gcc-12.5.0/configure \
     --disable-libgomp          \
     --disable-libquadmath      \
     --enable-default-pie       \
-    --enable-static
+    --enable-static            \
+    LDFLAGS="$LDFLAGS -static"
 
 WORKDIR /ghdl-build/gcc-objs
 RUN make -j$(nproc) && make install
