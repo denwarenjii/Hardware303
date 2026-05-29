@@ -1,5 +1,9 @@
 # https://gist.github.com/octocat/9257657
 
+# VHDL specific files
+*.cf
+*.vcd
+
 # Compiled source #
 ###################
 *.com
