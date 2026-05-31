@@ -36,7 +36,7 @@ use ieee.numeric_std.all;
 use std.textio.all;
 
 use ANSIEscape.all;
-use work.all
+use work.all;
 use work.FixedLib.all;
 
 use osvvm.RandomPkg.all;
@@ -54,9 +54,9 @@ entity WBlock is
   port (
     YIn   : in  std_logic_vector(wordsize - 1 downto 0);
     Vt    : in  std_logic_vector(wordsize - 1 downto 0);
-    CLK   : in  std_logic
+    CLK   : in  std_logic;
     Ready : out std_logic;
-    WOut  : out std_logic_vector(wordsize - 1 downto 0);
+    WOut  : out std_logic_vector(wordsize - 1 downto 0)
   );
 end WBlock;
 
@@ -82,12 +82,40 @@ architecture structural of WBlock is
   signal SinhIn  : std_logic_vector(wordsize - 1 downto 0);
   signal SinhOut : std_logic_vector(wordsize - 1 downto 0);
 
+  -- signal DivSinhByCoshIn  : std_logic_vector(wordsize - 1 downto 0);
+  -- signal DivSinhByCoshOUt : std_logic_vector(wordsize - 1 downto 0);
+  signal SinhDivCosh_XIn : std_logic_vector(wordsize - 1 downto 0);
+  signal SinhDivCosh_YIn : std_logic_vector(wordsize - 1 downto 0);
+  signal SinhDivCosh_Out : std_logic_vector(wordsize - 1 downto 0);
+
 begin
 
   -- Shift Vt left by 1 to get 2*Vt
   DivByVtIn  <= Vt(wordsize -1 downto 1) & '0';
 
+  -- Steps:
+  --   Calculate 1/2*Vt
+  --         |
+  --         v
+  --   Scale y[n] by 1/2*Vt
+  --         |
+  --         v
+  --   Calculate cosh and sinh
+  --         |
+  --         v
+  --  Div sinh by cosh
+  --
   ScaleYIn <= DivByVtOut;
+
+  CoshIn <= ScaleYOut;
+  SinhIn <= ScaleYOut;
+
+  -- Calculating y/x
+  SinhDivCosh_XIn <= CoshOut;
+  SinhDivCosh_YIn <= SinhOut;
+
+  -- Result
+  WOut <= SinhDivCosh_Out;
 
   -- Calculate 1/2*Vt
   -- NOTE: Cordic calculates y/x when in division mode
@@ -118,11 +146,10 @@ begin
   CoshCordic : entity Cordic
     port map (
       CLK   => CLK,
-      X     => 
-      Y     => 
-      Func  => 
-      R     => 
-    
+      X     => CoshIn,
+      Y     => (others => '0'),
+      Func  => F_COSH_X,
+      R     => CoshOut
   );
 
   -- Calculate sinh((1/2*Vt) * y[n])
@@ -130,23 +157,21 @@ begin
   SinhCordic : entity Cordic
     port map (
       CLK   => CLK,
-      X     => 
-      Y     => 
-      Func  => 
-      R     => 
-    
+      X     => SinhIn,
+      Y     => (others => '0'),
+      Func  => F_SINH_X,
+      R     => SinhOut
   );
 
   -- Calculate sinh((1/2*Vt) * y[n]) / cosh((1/2*Vt) * y[n])
   --
-  SinhCordic : entity Cordic
+  SinhDivCoshCordic : entity Cordic
     port map (
       CLK   => CLK,
-      X     => 
-      Y     => 
-      Func  => 
-      R     => 
-    
+      X     => SinhDivCosh_XIn,
+      Y     => SinhDivCosh_YIn,
+      Func  => F_Y_DIV_X,
+      R     => SinhDivCosh_Out
   );
 
 end structural;
