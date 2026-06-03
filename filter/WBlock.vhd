@@ -189,6 +189,7 @@ begin
   -- Calculate sinh((1/2*Vt) * y[n])
   --
   -- For SinhIn = ScaleYOut = 0.27, we expect ~= 0.27
+  -- [OK]
   SinhCordic : entity Cordic
     port map (
       CLK   => CLK,
@@ -200,13 +201,15 @@ begin
 
   -- Calculate sinh((1/2*Vt) * y[n]) / cosh((1/2*Vt) * y[n])
   --
-  -- SinhDivCoshCordic : entity Cordic
-  --   port map (
-  --     CLK   => CLK,
-  --     X     => SinhDivCosh_XIn,
-  --     Y     => SinhDivCosh_YIn,
-  --     Func  => F_Y_DIV_X,
-  --     R     => SinhDivCosh_Out
-  -- );
+  -- For CoshOut = 1.03 and SinhOut = 0.27, we expect ~= 0.26
   --
+  SinhDivCoshCordic : entity Cordic
+    port map (
+      CLK   => CLK,
+      X     => SinhDivCosh_XIn,
+      Y     => SinhDivCosh_YIn,
+      Func  => F_Y_DIV_X,
+      R     => SinhDivCosh_Out
+  );
+  
 end structural;
