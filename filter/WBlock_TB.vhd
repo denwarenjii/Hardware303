@@ -40,24 +40,31 @@ end WBlock_TB;
 architecture sim of WBlock_TB is
     constant WORD_SIZE : integer := 16;
 
+    -- Period for a 1GHz clock
+    constant CLK_PERIOD : time  := (1 sec / (1e9));
+
     signal ClkEn : std_logic := '1'; -- Clock enable; active high
 
-    signal YIn_TB : std_logic_vector(WORD_SIZE - 1 downto 0);
-    signal Vt_TB  : std_logic_vector(WORD_SIZE - 1 downto 0);
-    signal CLK_TB : std_logic := '0';
-    signal Ready  : std_logic;
-    signal WOut   : std_logic_vector(WORD_SIZE - 1 downto 0);
+    signal YIn_TB    : std_logic_vector(WORD_SIZE - 1 downto 0) := (others => '0');
+    signal Vt_TB     : std_logic_vector(WORD_SIZE - 1 downto 0) := (others => '0');
+    signal CLK_TB    : std_logic := '1';
+    signal Ready_TB  : std_logic;
+    signal WOut_TB   : std_logic_vector(WORD_SIZE - 1 downto 0);
 
 begin
+
+    YIn_TB <= RealToQ1_14(0.25);
+    Vt_TB <= RealToQ1_14(0.46);
+
     UUT : entity WBlock
     generic map (
         wordsize => WORD_SIZE
-    );
+    )
     port map (
         YIn   => YIn_TB,
         Vt    => Vt_TB,
         CLK   => CLK_TB,
-        Ready => Ready_TB
+        Ready => Ready_TB,
         WOut  => Wout_TB
     );
 

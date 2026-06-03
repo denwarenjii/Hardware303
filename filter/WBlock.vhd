@@ -24,6 +24,8 @@
 --    28 May 2026   Chris M.   Initial revision; described entity and sketched
 --                             architecture structure.
 --
+-- TODO:
+--    Expand range of cordic (-5.0 to 5.0)? Just add more integer bits ?
 -------------------------------------------------------------------------------
 
 -- libraries
@@ -35,9 +37,11 @@ use ieee.numeric_std.all;
 
 use std.textio.all;
 
-use ANSIEscape.all;
 use work.all;
-use work.FixedLib.all;
+
+use ANSIEscape.all;
+use CordicConstants.all;     -- Cordic constants.
+use FixedLib.all;
 
 use osvvm.RandomPkg.all;
 use osvvm.CoveragePkg.all;
@@ -69,7 +73,17 @@ architecture structural of WBlock is
   -- function RealToQ1_14 (real_val : real) return std_logic_vector is
 
   -- TODO: No point in using wordsize generic if this is hardcoded to 16 bits
-  constant One_Q1_14 : std_logic_vector(wordsize - 1 downto 0);
+
+  constant One_Q1_14 : std_logic_vector(wordsize - 1 downto 0) := RealToQ1_14(1.0);
+
+  constant ALL_U : std_logic_vector(wordsize - 1 downto 0) := (others => 'U');
+  constant ALL_X : std_logic_vector(wordsize - 1 downto 0) := (others => 'X');
+  
+  -- The min and max Q1.14 fixed point values represented as reals.
+  constant MIN_REAL_VAL : real := -2.0;
+  constant MAX_REAL_VAL : real := 1.9999;
+
+
   signal DivByVtIn   : std_logic_vector(wordsize - 1 downto 0);
   signal DivByVtOut  : std_logic_vector(wordsize - 1 downto 0);
 
@@ -91,7 +105,8 @@ architecture structural of WBlock is
 begin
 
   -- Shift Vt left by 1 to get 2*Vt
-  DivByVtIn  <= Vt(wordsize -1 downto 1) & '0';
+    DivByVtIn  <= (others => '0') when (Vt = ALL_U or Vt = ALL_X) else
+                  Vt(wordsize - 2 downto 0) & '0';
 
   -- Steps:
   --   Calculate 1/2*Vt
@@ -105,9 +120,15 @@ begin
   --         v
   --  Div sinh by cosh
   --
-  ScaleYIn <= DivByVtOut;
+  ScaleYIn <= (others => '0') when (DivByVtOut = ALL_U or DivByVtOut = ALL_X) else
+              DivByVtOut;
 
-  CoshIn <= ScaleYOut;
+      -- ('0' xor GetMSB(XInputBus(i))) when ((Mode = VECTORING) and 
+      --                                      (signed(YInputBus(i)) < signed(ZERO_22))) else
+
+  CoshIn <= (others => '0') when (ScaleYOut = ALL_U or ScaleYOut = ALL_X) else
+            ScaleYOut;
+
   SinhIn <= ScaleYOut;
 
   -- Calculating y/x
@@ -119,10 +140,17 @@ begin
 
   -- Calculate 1/2*Vt
   -- NOTE: Cordic calculates y/x when in division mode
+  -- NOTE: The standard thermal voltage of a BJT is 0.026V. 1.0 / (2.0 * 0.026)
+  --       would cause the cordic to "underflow", so we pick an arbitrary Vt
   --
+  -- For Vt = 0.46 as in the testbench, we expect 1/0.92 ~= 1.08 as the output
+  --
+  -- [OK]
   DivByVtCordic : entity Cordic
     port map (
       CLK   => CLK,
+      -- X => RealToQ1_14(0.85),
+      -- Y => RealToQ1_14(1.00),
       X     => DivByVtIn,
       Y     => One_Q1_14,
       Func  => F_Y_DIV_X,
@@ -132,6 +160,9 @@ begin
   
   -- Calculate (1/2*Vt) * y[n]
   --
+  -- For ScaleYIn = DivByVtOut = 1.08 as in the test bench, and YIn = 0.25,
+  -- we expect ~= 0.27
+  -- [OK]
   ScaleYInCordic : entity Cordic
     port map (
       CLK   => CLK,
@@ -142,6 +173,9 @@ begin
     );
 
   -- Calculate cosh((1/2*Vt) * y[n])
+  --
+  -- For CoshIn = ScaleYOut = 0.27, we expect ~= 1.03
+  -- [OK]
   --
   CoshCordic : entity Cordic
     port map (
@@ -154,6 +188,7 @@ begin
 
   -- Calculate sinh((1/2*Vt) * y[n])
   --
+  -- For SinhIn = ScaleYOut = 0.27, we expect ~= 0.27
   SinhCordic : entity Cordic
     port map (
       CLK   => CLK,
@@ -165,13 +200,13 @@ begin
 
   -- Calculate sinh((1/2*Vt) * y[n]) / cosh((1/2*Vt) * y[n])
   --
-  SinhDivCoshCordic : entity Cordic
-    port map (
-      CLK   => CLK,
-      X     => SinhDivCosh_XIn,
-      Y     => SinhDivCosh_YIn,
-      Func  => F_Y_DIV_X,
-      R     => SinhDivCosh_Out
-  );
-
+  -- SinhDivCoshCordic : entity Cordic
+  --   port map (
+  --     CLK   => CLK,
+  --     X     => SinhDivCosh_XIn,
+  --     Y     => SinhDivCosh_YIn,
+  --     Func  => F_Y_DIV_X,
+  --     R     => SinhDivCosh_Out
+  -- );
+  --
 end structural;
