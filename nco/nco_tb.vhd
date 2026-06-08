@@ -195,6 +195,9 @@ begin
 
     Reset_TB <= '1';
 
+    -- TODO: Don't hardcode
+    Log(output, "Writing to sawtooth.txt and square.txt");
+
     for i in 0 to (TEST_FREQS'length  - 1) loop
 
       -- Note that time/time = integer

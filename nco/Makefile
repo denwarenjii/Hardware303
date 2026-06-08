@@ -37,9 +37,10 @@ nco_tb: nco.vhd nco_tb.vhd | work
 	$(GHDL) -e $(GHDLFLAGS) nco_tb
 
 run:  nco_tb | $(VERIFY_SCRIPT)
-	$(GHDL) -r nco_tb $(RUNFLAGS) 
+	$(GHDL) -r nco_tb $(RUNFLAGS) 2>&1 | tee nco_sim.txt
 	@echo $(VERIFY_SCRIPT)
-	python3 $(VERIFY_SCRIPT)
+	python3 $(VERIFY_SCRIPT) 2>&1 | tee verify_nco.txt
+
 clean:
 	$(GHDL) --clean --std=08 --workdir=work/
 	rm -rfd work/*
