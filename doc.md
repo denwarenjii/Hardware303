@@ -111,7 +111,6 @@ of CORDICs:
 
 ![W block digital diagram](w_block_digital.jpg)
 
-
 It is important to note that the finished design uses Q1.14 signed fixed point
 numbers (or Q2.14 depending on the naming) convention. This means that we have
 two bits for a signed integer part, and 14 bits for the fractional part. This
@@ -120,6 +119,95 @@ this severely limits range of intermediate values we can represent. Ideally,
 we would be able to represent the voltage range of original TB-303, which is
 most on the order of 10s of voltages.
 
+Aditionally, the CORDIC was modified so that multiple instantiations of it
+are possible, and was made fully synchronous to simplify prototyping. This
+will severely limit speed, but since our timinig requirement is relatively large,
+we are okay with this trade off.
+
+
+The filter as a whole can be represented using the following diagram.
+
 ## Results
+ 
+The NCO was shown to accurately produce the required notes in the bass clef.
+
+<insert matplotlib pic here>
+
+## Source Code structure
+
+```
+./
+├── Dockerfile # dockerfile used for reproducible github build (doesn't work currently)
+├── Makefile   # top level makefile (doesn't work currently)
+├── README.md
+├── TODO.md
+├── build_osvvm.sh # osvvm build script
+├── cordic/        # cordic directory. Note that this includes many versions of the cordic
+|                  # also note that these versions are BROKEN (you can't instatiate multiple
+|                  # of them because I have a shared variable bug in the CordicConstants package)
+|
+├── doc.md         # project documentation source code
+├── doc.pdf        # project documentation PDF
+├── filter/        # filter implementation. Includes all relevant files
+│   ├── AddSub.vhd*             # 1-bit adder/subtracter
+│   ├── AdderSubtracter.vhd*    # n-bit adder/subtracter
+│   ├── AnsiEscape.vhd*         # AnsiEscape constants for colored output
+│   ├── Cordic.vhd*             # 16-bit, Q1.14 (signed) fixed point cordic. Implemented internally
+|   |                           # using Q3.18 signed fixed point numbers (22-bit). Modified to be
+|   |                           # concurrent. Implemented using multiple stages
+|   |
+│   ├── CordicStage.vhd*        # A single Cordic stage
+│   ├── FixedLib.vhd*           # Real to fixed point standard_logic_vector conversion and vice-versa
+│   ├── Makefile                # filter make file
+│   ├── MoogFilter.vhd          # Top level filter source file
+│   ├── MoogFilterStage.vhd     # A single stage of the moog ladder filter
+│   ├── MoogFilterStage_TB.vhd  # Test bench for single moog ladder filter stage
+│   ├── MoogFilter_TB.vhd       # test bench for top level moog ladder filter
+│   ├── WBlock.vhd              # W block source file (see above)
+│   ├── WBlock_TB.vhd           # W block test bench
+│   ├── conf.gtkw               # ignore (for dev)
+│   ├── conf_1.gtkw             # ignore (for dev)
+│   ├── e~moogfilter_tb.o       # ignore
+│   ├── filter_process.py*      # ignore
+│   ├── make_filter.sh*         # shell script to build and run the filter
+│   ├── make_stage.sh*          # shell script to
+│   ├── matlab/
+│   ├── moogfilter_tb*
+│   ├── moogfilterstage_conf.gtkw
+│   ├── moogfilterstage_tb.vcd
+│   ├── out.txt
+│   ├── q1_14_filter.py*
+│   └── work/
+├── filter_diagram.jpg  
+├── gcc-12.5.0/  # GCC source code (for compiling GHDL 7.0.0 from source)
+|
+├── nco/
+│   ├── INSTRUCTIONS.md
+│   ├── Makefile*
+│   ├── e~nco_tb.o
+│   ├── nco.vhd*
+│   ├── nco_tb*
+│   ├── nco_tb.vhd*
+│   ├── out.txt
+│   ├── sawtooth.txt
+│   ├── sawtooth_freq_domain/
+│   ├── sawtooth_time_domain/
+│   ├── square.txt
+│   ├── square_freq_domain/
+│   ├── square_time_domain/
+│   ├── time_util.vhd
+│   ├── verify_nco.py*          # iterations of python script used 
+│   ├── verify_nco.py.copy*
+│   ├── verify_nco_1.py
+│   ├── verify_nco_2.py
+│   ├── verify_nco_3.py
+│   └── work/
+├── sub.md
+├── unusued/
+├── w_block.jpg
+└── w_block_digital.jpg
+```
+
+## Building
 
 [1] https://dafx.de/paper-archive/2004/P_061.PDF
