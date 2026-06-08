@@ -1,10 +1,9 @@
-name: Build GHDL and OSVVM
+yamlname: Build GHDL and OSVVM
 
 on:
   push:
     paths:
       - '**.vhd'
-
   workflow_dispatch:
 
 jobs:
@@ -14,11 +13,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Build and extract
-        run: docker build --target=export --output=./artifacts .
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
+      - name: Build and extract
+        uses: docker/build-push-action@v5
         with:
-          name: ghdl-7-dev
-          path: ./artifacts/ghdl-7-dev
+          context: .
+          target: export
+          outputs: type=local,dest=./artifacts
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
