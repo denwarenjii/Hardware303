@@ -201,4 +201,20 @@ The NCO was shown to accurately produce the required notes in the bass clef.
 
 ## Building
 
+Ideally:
+
+```
+$ cd filter
+$ ./make_filter.sh
+```
+
+but this will most likely not work for others because
+
+1) I used GHDL 7.0.0 (compiled from source), which has breaking changes
+   when compared to versions of GHDL packages with distros
+
+2) My OSVVM build directory is hard coded there
+
+I am working on getting it to build in github.
+
 [1] https://dafx.de/paper-archive/2004/P_061.PDF
