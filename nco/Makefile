@@ -17,30 +17,29 @@
 # GHDL = /opt/ghdl-6.0.0-dev/bin/ghdl
 
  
-GHDL = /usr/local/bin/ghdl
+GHDL = ghdl
 
-OSVVM_DIR = $(HOME)/VHDL_LIBS/GHDL-7.0.0
+OSVVM_DIR := $(HOME)/VHDL_LIBS/GHDL-7.0.0
 
-GHDLFLAGS = --std=08 -Wuseless -Werror -fsynopsys --workdir=work -P$(OSVVM_DIR)
+GHDLFLAGS := --std=08 -Wuseless -Werror -fsynopsys --workdir=work -P$(OSVVM_DIR)
 
-RUNFLAGS= --vcd=work/NCO_TB.vcd --stop-time=100sec
+RUNFLAGS := --vcd=work/NCO_TB.vcd --stop-time=100sec
 
-SRC = nco.vhd nco_tb.vhd
+SRC := nco.vhd nco_tb.vhd
 
+VERIFY_SCRIPT := verify_nco_5.py
 
-all:
-	$(MAKE) nco_tb
+all: run
 
-# 
 nco_tb: nco.vhd nco_tb.vhd | work
 	$(GHDL) -a $(GHDLFLAGS) nco.vhd
 	$(GHDL) -a $(GHDLFLAGS) nco_tb.vhd
 	$(GHDL) -e $(GHDLFLAGS) nco_tb
 
-run:  nco_tb
+run:  nco_tb | $(VERIFY_SCRIPT)
 	$(GHDL) -r nco_tb $(RUNFLAGS) 
-	@echo "Running verify_nco_3.py"
-	python3 verify_nco_3.py
+	@echo $(VERIFY_SCRIPT)
+	python3 $(VERIFY_SCRIPT)
 clean:
 	$(GHDL) --clean --std=08 --workdir=work/
 	rm -rfd work/*
