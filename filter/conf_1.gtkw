@@ -1,0 +1,82 @@
+[*]
+[*] GTKWave Analyzer v3.4.0 (w)1999-2022 BSI
+[*] Mon Jun  8 03:23:22 2026
+[*]
+[dumpfile] "/home/chris/projects/Hardware303/filter/work/moogfilterstage_tb.vcd"
+[dumpfile_mtime] "Mon Jun  8 03:23:15 2026"
+[dumpfile_size] 1869520
+[savefile] "/home/chris/projects/Hardware303/filter/conf_1.gtkw"
+[timestart] 0
+[size] 1524 822
+[pos] -1 -1
+*-20.000000 500000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+[markername] AA
+[markername] BB
+[markername] CC
+[markername] DD
+[markername] EE
+[markername] FF
+[markername] GG
+[markername] HH
+[markername] II
+[markername] JJ
+[markername] KK
+[markername] LL
+[markername] MM
+[markername] NN
+[markername] OO
+[markername] PP
+[markername] QQ
+[markername] RR
+[markername] SS
+[markername] TT
+[markername] UU
+[markername] VV
+[markername] WW
+[markername] XX
+[markername] YY
+[markername] ZZ
+[treeopen] moogfilterstage_tb.
+[treeopen] moogfilterstage_tb.uut.
+[sst_width] 273
+[signals_width] 166
+[sst_expanded] 1
+[sst_vpaned_height] 382
+@201
+-Wn
+@200
+-adder0
+@22
+moogfilterstage_tb.uut.adder0.a[15:0]
+@4022
+^>1 /home/chris/projects/Hardware303/filter/q1_14_filter.py
+moogfilterstage_tb.uut.adder0.a[15:0]
+@22
+moogfilterstage_tb.uut.adder0.b[15:0]
+@4022
+^>1 /home/chris/projects/Hardware303/filter/q1_14_filter.py
+moogfilterstage_tb.uut.adder0.b[15:0]
+@22
+moogfilterstage_tb.uut.adder0.s[15:0]
+@4022
+^>1 /home/chris/projects/Hardware303/filter/q1_14_filter.py
+moogfilterstage_tb.uut.adder0.s[15:0]
+@200
+-mul
+@22
+moogfilterstage_tb.uut.mul.x[15:0]
+@4022
+^>1 /home/chris/projects/Hardware303/filter/q1_14_filter.py
+moogfilterstage_tb.uut.mul.x[15:0]
+@22
+moogfilterstage_tb.uut.mul.y[15:0]
+@4022
+^>1 /home/chris/projects/Hardware303/filter/q1_14_filter.py
+moogfilterstage_tb.uut.mul.y[15:0]
+@22
+moogfilterstage_tb.uut.mul.r[15:0]
+@4022
+^>1 /home/chris/projects/Hardware303/filter/q1_14_filter.py
+moogfilterstage_tb.uut.mul.r[15:0]
+[pattern_trace] 1
+[pattern_trace] 0

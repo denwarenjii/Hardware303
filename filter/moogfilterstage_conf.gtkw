@@ -1,0 +1,151 @@
+[*]
+[*] GTKWave Analyzer v3.4.0 (w)1999-2022 BSI
+[*] Wed Jun  3 08:37:53 2026
+[*]
+[dumpfile] "(null)"
+[savefile] "/home/chris/projects/Hardware303/filter/moogfilterstage_conf.gtkw"
+[timestart] 0
+[size] 1524 799
+[pos] -1 -1
+*-20.000000 500000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+[markername] AA
+[markername] BB
+[markername] CC
+[markername] DD
+[markername] EE
+[markername] FF
+[markername] GG
+[markername] HH
+[markername] II
+[markername] JJ
+[markername] KK
+[markername] LL
+[markername] MM
+[markername] NN
+[markername] OO
+[markername] PP
+[markername] QQ
+[markername] RR
+[markername] SS
+[markername] TT
+[markername] UU
+[markername] VV
+[markername] WW
+[markername] XX
+[markername] YY
+[markername] ZZ
+[treeopen] wblock_tb.
+[treeopen] wblock_tb.uut.
+[treeopen] wblock_tb.uut.divbyvtcordic.cordicstage_gen(0).
+[treeopen] wblock_tb.uut.divbyvtcordic.cordicstage_gen(1).
+[treeopen] wblock_tb.uut.divbyvtcordic.cordicstage_gen(2).
+[sst_width] 273
+[signals_width] 166
+[sst_expanded] 1
+[sst_vpaned_height] 368
+@200
+-wblock
+@28
+wblock_tb.clk_tb
+@22
+wblock_tb.vt_tb[15:0]
+@4022
+^>1 /home/chris/projects/Hardware303/filter/q1_14_filter.py
+wblock_tb.vt_tb[15:0]
+@22
+wblock_tb.yin_tb[15:0]
+@4022
+^>1 /home/chris/projects/Hardware303/filter/q1_14_filter.py
+wblock_tb.yin_tb[15:0]
+@22
+wblock_tb.wout_tb[15:0]
+@4022
+^>1 /home/chris/projects/Hardware303/filter/q1_14_filter.py
+wblock_tb.wout_tb[15:0]
+@200
+-divbyvtcordic
+@22
+wblock_tb.uut.divbyvtcordic.x[15:0]
+@4022
+^>1 /home/chris/projects/Hardware303/filter/q1_14_filter.py
+wblock_tb.uut.divbyvtcordic.x[15:0]
+@22
+wblock_tb.uut.divbyvtcordic.y[15:0]
+@4022
+^>1 /home/chris/projects/Hardware303/filter/q1_14_filter.py
+wblock_tb.uut.divbyvtcordic.y[15:0]
+@22
+wblock_tb.uut.divbyvtcordic.r[15:0]
+@4022
+^>1 /home/chris/projects/Hardware303/filter/q1_14_filter.py
+wblock_tb.uut.divbyvtcordic.r[15:0]
+@200
+-scaleyincordic
+@22
+wblock_tb.uut.scaleyincordic.x[15:0]
+@4022
+^>1 /home/chris/projects/Hardware303/filter/q1_14_filter.py
+wblock_tb.uut.scaleyincordic.x[15:0]
+@22
+wblock_tb.uut.scaleyincordic.y[15:0]
+@4022
+^>1 /home/chris/projects/Hardware303/filter/q1_14_filter.py
+wblock_tb.uut.scaleyincordic.y[15:0]
+@22
+wblock_tb.uut.scaleyincordic.r[15:0]
+@4022
+^>1 /home/chris/projects/Hardware303/filter/q1_14_filter.py
+wblock_tb.uut.scaleyincordic.r[15:0]
+@200
+-CoshCordic
+@22
+wblock_tb.uut.coshcordic.x[15:0]
+@4022
+^>1 /home/chris/projects/Hardware303/filter/q1_14_filter.py
+wblock_tb.uut.coshcordic.x[15:0]
+@22
+wblock_tb.uut.coshcordic.y[15:0]
+@4022
+^>1 /home/chris/projects/Hardware303/filter/q1_14_filter.py
+wblock_tb.uut.coshcordic.y[15:0]
+@22
+wblock_tb.uut.coshcordic.r[15:0]
+@4022
+^>1 /home/chris/projects/Hardware303/filter/q1_14_filter.py
+wblock_tb.uut.coshcordic.r[15:0]
+@200
+-SinhCordic
+@22
+wblock_tb.uut.sinhcordic.x[15:0]
+@4022
+^>1 /home/chris/projects/Hardware303/filter/q1_14_filter.py
+wblock_tb.uut.sinhcordic.x[15:0]
+@22
+wblock_tb.uut.sinhcordic.y[15:0]
+@4022
+^>1 /home/chris/projects/Hardware303/filter/q1_14_filter.py
+wblock_tb.uut.sinhcordic.y[15:0]
+@22
+wblock_tb.uut.sinhcordic.r[15:0]
+@4022
+^>1 /home/chris/projects/Hardware303/filter/q1_14_filter.py
+wblock_tb.uut.sinhcordic.r[15:0]
+@200
+-SinhDivCoshCordic
+@22
+wblock_tb.uut.sinhdivcoshcordic.x[15:0]
+@4022
+^>1 /home/chris/projects/Hardware303/filter/q1_14_filter.py
+wblock_tb.uut.sinhdivcoshcordic.x[15:0]
+@22
+wblock_tb.uut.sinhdivcoshcordic.y[15:0]
+@4022
+^>1 /home/chris/projects/Hardware303/filter/q1_14_filter.py
+wblock_tb.uut.sinhdivcoshcordic.y[15:0]
+@22
+wblock_tb.uut.sinhdivcoshcordic.r[15:0]
+@4023
+^>1 /home/chris/projects/Hardware303/filter/q1_14_filter.py
+wblock_tb.uut.sinhdivcoshcordic.r[15:0]
+[pattern_trace] 1
+[pattern_trace] 0
