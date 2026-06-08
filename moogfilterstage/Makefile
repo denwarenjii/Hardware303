@@ -16,6 +16,7 @@ GHDL := ghdl
 OSVVM_DIR := $(HOME)/VHDL_LIBS/GHDL-7.0.0
 GHDLFLAGS := --std=08  -Wall -Wshared -Wuseless -Wunused -fsynopsys --workdir=work -P$(OSVVM_DIR)
 GHDLRUNFLAGS := --ieee-asserts=disable --stop-time=100ns
+TB_BINARY := moogfilterstage_tb
 
 SRCS := AnsiEscape.vhd \
 	FixedLib.vhd \
@@ -25,10 +26,11 @@ SRCS := AnsiEscape.vhd \
 	CordicStage.vhd \
 	Cordic.vhd \
 	WBlock.vhd \
-	WBlock_TB.vhd
+	MoogFilterStage.vhd \
+	MoogFilterStage_TB.vhd
 
 all: | work
-	$(MAKE) wblock_tb
+	$(MAKE) $(TB_BINARY)
 
 moogfilterstage_tb: | work $(SRCS)
 	$(GHDL) -a $(GHDLFLAGS) AnsiEscape.vhd
@@ -39,10 +41,11 @@ moogfilterstage_tb: | work $(SRCS)
 	$(GHDL) -a $(GHDLFLAGS) CordicStage.vhd
 	$(GHDL) -a $(GHDLFLAGS) Cordic.vhd
 	$(GHDL) -a $(GHDLFLAGS) WBlock.vhd
-	$(GHDL) -a $(GHDLFLAGS) WBlock_TB.vhd
-	$(GHDL) -e $(GHDLFLAGS) wblock_tb
+	$(GHDL) -a $(GHDLFLAGS) MoogFilterStage.vhd
+	$(GHDL) -a $(GHDLFLAGS) MoogFilterStage_TB.vhd
+	$(GHDL) -e $(GHDLFLAGS) $(TB_BINARY)
 
-run: wblock_tb | work
+run: $(TB_BINARY) | work
 	$(GHDL) -r $< $(GHDLRUNFLAGS) --vcd=work/$<.vcd
 
 clean:
