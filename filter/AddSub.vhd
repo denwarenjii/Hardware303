@@ -39,7 +39,7 @@ entity AddSub is
     Cin       : in  std_logic;
     AddBarSub : in  std_logic;
     Cout      : out std_logic;
-    S         : out std_logic_vector(21 downto 0)
+    S         : out std_logic_vector(wordsize - 1 downto 0)
   );
 end AddSub;
 
