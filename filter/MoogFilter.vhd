@@ -159,6 +159,7 @@ begin
    begin
     if rising_edge(CLK) then
       Yd_n_min_1 <= Yd;
+      Yout <= Yd;
     end if;
   end process;
 
