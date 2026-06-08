@@ -26,9 +26,17 @@ jobs:
           cache-to: type=gha,mode=max
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v4
-        with:
+          uses: actions/upload-artifact@v4
+          with:
           name: simulation-results
-          path: ./artifacts
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          path: |
+            ./artifacts/**/*.vcd
+            ./artifacts/**/*.txt
+
+      # - name: Upload artifacts
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: simulation-results
+      #     path: ./artifacts
+      #     cache-from: type=gha
+      #     cache-to: type=gha,mode=max
