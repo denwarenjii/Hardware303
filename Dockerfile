@@ -181,5 +181,5 @@ COPY nco .
 RUN make
 
 FROM scratch AS export
-COPY --from=project /Hardware303/nco/work/*.vcd ./nco/
-COPY --from=project /Hardware303/nco/work/*.txt ./nco/
+COPY --from=project /Hardware303/nco/**.vcd ./nco/
+COPY --from=project /Hardware303/nco/**.txt ./nco/
