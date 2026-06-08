@@ -176,7 +176,7 @@ RUN cp work/* $HOME/VHDL_LIBS/GHDL-7.0.0/osvvm/v08
 
 FROM osvvm AS project
 
-WORKDIR /Hardware303
+WORKDIR /Hardware303/nco
 COPY nco .
 RUN make
 
