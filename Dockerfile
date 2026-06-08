@@ -192,6 +192,10 @@ WORKDIR /Hardware303/moogfilterstage
 COPY moogfilterstage .
 RUN make run
 
+WORKDIR /Hardware303/moogfilter
+COPY moogfilter .
+RUN make run
+
 FROM scratch AS export
 COPY --from=project /Hardware303/nco/**.vcd ./nco/
 COPY --from=project /Hardware303/nco/**.txt ./nco/
@@ -202,5 +206,8 @@ COPY --from=project /Hardware303/cordic/**.txt ./cordic/
 COPY --from=project /Hardware303/wblock/**.vcd ./wblock/
 COPY --from=project /Hardware303/wblock/**.txt ./wblock/
 
-COPY --from=project /Hardware303/moogfilterstage/**.vcd ./wblock/
-COPY --from=project /Hardware303/moogfilterstage/**.txt ./wblock/
+COPY --from=project /Hardware303/moogfilterstage/**.vcd ./moogfilterstage/
+COPY --from=project /Hardware303/moogfilterstage/**.txt ./moogfilterstage/
+
+COPY --from=project /Hardware303/moogfilter/**.vcd ./moogfilter/
+COPY --from=project /Hardware303/moogfilter/**.txt ./moogfilter/
