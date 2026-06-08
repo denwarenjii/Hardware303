@@ -1,9 +1,12 @@
 #
-GHDL         = /usr/local/bin/ghdl
+# GHDL := /usr/local/bin/ghdl
+SHELL = /bin/bash
+.SHELLFLAGS = -o pipefail -c
+GHDL := ghdl
 
-OSVVM_DIR    = $(HOME)/VHDL_LIBS/GHDL-7.0.0
-GHDLFLAGS    = --std=08 -Wuseless -Wunused -fsynopsys --workdir=work -P$(OSVVM_DIR)
-GHDLRUNFLAGS = --ieee-asserts=disable --stop-time=1000ns --vcd=work/cordic_tb.vcd
+OSVVM_DIR    := $(HOME)/VHDL_LIBS/GHDL-7.0.0
+GHDLFLAGS    := --std=08 -Wuseless -Wunused -fsynopsys --workdir=work -P$(OSVVM_DIR)
+GHDLRUNFLAGS := --ieee-asserts=disable --stop-time=1000ns --vcd=work/cordic_tb.vcd
 
 SRCS := AdderSubtracter.vhd \
 	AddSub.vhd	    \
@@ -31,7 +34,7 @@ clean:
 	rm -rfd work/*
 
 run: cordic_tb
-	$(GHDL) -r $< $(GHDLRUNFLAGS)
+	$(GHDL) -r $< $(GHDLRUNFLAGS) 2>&1 | tee cordic_sim.log
 
 work:
 	mkdir -p work

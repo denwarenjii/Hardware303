@@ -16,6 +16,8 @@
 # On my PC, this is where I installed ghdl 6.0.0 with gcc code generation
 # GHDL = /opt/ghdl-6.0.0-dev/bin/ghdl
 
+SHELL = /bin/bash
+.SHELLFLAGS = -o pipefail -c
  
 GHDL = ghdl
 

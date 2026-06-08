@@ -178,8 +178,15 @@ FROM osvvm AS project
 
 WORKDIR /Hardware303/nco
 COPY nco .
-RUN make
+RUN make run
+
+WORKDIR /Hardware303/cordic
+COPY cordic .
+RUN make run
 
 FROM scratch AS export
 COPY --from=project /Hardware303/nco/**.vcd ./nco/
 COPY --from=project /Hardware303/nco/**.txt ./nco/
+
+COPY --from=project /Hardware303/cordic/**.vcd ./cordic/
+COPY --from=project /Hardware303/cordic/**.txt ./cordic/
