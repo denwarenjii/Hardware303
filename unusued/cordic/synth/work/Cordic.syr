@@ -1,0 +1,683 @@
+Release 14.7 - xst P.20131013 (lin64)
+Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
+--> 
+Parameter TMPDIR set to xst/projnav.tmp
+
+
+Total REAL time to Xst completion: 0.00 secs
+Total CPU time to Xst completion: 0.03 secs
+ 
+--> 
+Parameter xsthdpdir set to xst
+
+
+Total REAL time to Xst completion: 0.00 secs
+Total CPU time to Xst completion: 0.03 secs
+ 
+--> 
+Reading design: Cordic.prj
+
+TABLE OF CONTENTS
+  1) Synthesis Options Summary
+  2) HDL Compilation
+  3) Design Hierarchy Analysis
+  4) HDL Analysis
+  5) HDL Synthesis
+     5.1) HDL Synthesis Report
+  6) Advanced HDL Synthesis
+     6.1) Advanced HDL Synthesis Report
+  7) Low Level Synthesis
+  8) Partition Report
+  9) Final Report
+	9.1) Device utilization summary
+	9.2) Partition Resource Summary
+	9.3) TIMING REPORT
+
+
+=========================================================================
+*                      Synthesis Options Summary                        *
+=========================================================================
+---- Source Parameters
+Input File Name                    : "Cordic.prj"
+Input Format                       : mixed
+Ignore Synthesis Constraint File   : NO
+
+---- Target Parameters
+Output File Name                   : "Cordic"
+Output Format                      : NGC
+Target Device                      : xc3s1200e-4-fg320
+
+---- Source Options
+Top Module Name                    : Cordic
+Automatic FSM Extraction           : YES
+FSM Encoding Algorithm             : Auto
+Safe Implementation                : No
+FSM Style                          : LUT
+RAM Extraction                     : Yes
+RAM Style                          : Auto
+ROM Extraction                     : Yes
+Mux Style                          : Auto
+Decoder Extraction                 : YES
+Priority Encoder Extraction        : Yes
+Shift Register Extraction          : YES
+Logical Shifter Extraction         : YES
+XOR Collapsing                     : YES
+ROM Style                          : Auto
+Mux Extraction                     : Yes
+Resource Sharing                   : YES
+Asynchronous To Synchronous        : NO
+Multiplier Style                   : Auto
+Automatic Register Balancing       : No
+
+---- Target Options
+Add IO Buffers                     : YES
+Global Maximum Fanout              : 100000
+Add Generic Clock Buffer(BUFG)     : 24
+Register Duplication               : YES
+Slice Packing                      : YES
+Optimize Instantiated Primitives   : NO
+Use Clock Enable                   : Yes
+Use Synchronous Set                : Yes
+Use Synchronous Reset              : Yes
+Pack IO Registers into IOBs        : Auto
+Equivalent register Removal        : YES
+
+---- General Options
+Optimization Goal                  : Speed
+Optimization Effort                : 1
+Keep Hierarchy                     : No
+Netlist Hierarchy                  : As_Optimized
+RTL Output                         : Yes
+Global Optimization                : AllClockNets
+Read Cores                         : YES
+Write Timing Constraints           : NO
+Cross Clock Analysis               : NO
+Hierarchy Separator                : /
+Bus Delimiter                      : <>
+Case Specifier                     : Maintain
+Slice Utilization Ratio            : 100
+BRAM Utilization Ratio             : 100
+Verilog 2001                       : YES
+Auto BRAM Packing                  : NO
+Slice Utilization Ratio Delta      : 5
+
+=========================================================================
+
+
+=========================================================================
+*                          HDL Compilation                              *
+=========================================================================
+Compiling vhdl file "/home/chris/school/Winter_24_25/ee119b/hw3/synth/AdderSubtracter.vhd" in Library work.
+Architecture concurrent of Entity addersubtracter is up to date.
+Compiling vhdl file "/home/chris/school/Winter_24_25/ee119b/hw3/synth/FixedLib.vhd" in Library work.
+Architecture fixedlib of Entity fixedlib is up to date.
+Compiling vhdl file "/home/chris/school/Winter_24_25/ee119b/hw3/synth/AddSub.vhd" in Library work.
+Architecture concurrent of Entity addsub is up to date.
+Compiling vhdl file "/home/chris/school/Winter_24_25/ee119b/hw3/synth/AnsiEscape.vhd" in Library work.
+Compiling vhdl file "/home/chris/school/Winter_24_25/ee119b/hw3/synth/CordicStage.vhd" in Library work.
+Package <cordicconstants> compiled.
+Entity <cordicstage> compiled.
+Entity <cordicstage> (Architecture <concurrent>) compiled.
+Compiling vhdl file "/home/chris/school/Winter_24_25/ee119b/hw3/synth/Cordic.vhd" in Library work.
+Architecture sim of Entity cordic is up to date.
+
+=========================================================================
+*                     Design Hierarchy Analysis                         *
+=========================================================================
+Analyzing hierarchy for entity <Cordic> in library <work> (architecture <sim>).
+
+Analyzing hierarchy for entity <CordicStage> in library <work> (architecture <concurrent>) with generics.
+	wordsize = 22
+
+Analyzing hierarchy for entity <AddSub> in library <work> (architecture <concurrent>) with generics.
+	wordsize = 22
+
+Analyzing hierarchy for entity <AdderSubtracter> in library <work> (architecture <concurrent>).
+
+
+=========================================================================
+*                            HDL Analysis                               *
+=========================================================================
+Analyzing Entity <Cordic> in library <work> (Architecture <sim>).
+Entity <Cordic> analyzed. Unit <Cordic> generated.
+
+Analyzing generic Entity <CordicStage> in library <work> (Architecture <concurrent>).
+	wordsize = 22
+WARNING:Xst:753 - "/home/chris/school/Winter_24_25/ee119b/hw3/synth/CordicStage.vhd" line 269: Unconnected output port 'Cout' of component 'AddSub'.
+WARNING:Xst:753 - "/home/chris/school/Winter_24_25/ee119b/hw3/synth/CordicStage.vhd" line 282: Unconnected output port 'Cout' of component 'AddSub'.
+WARNING:Xst:753 - "/home/chris/school/Winter_24_25/ee119b/hw3/synth/CordicStage.vhd" line 293: Unconnected output port 'Cout' of component 'AddSub'.
+Entity <CordicStage> analyzed. Unit <CordicStage> generated.
+
+Analyzing generic Entity <AddSub> in library <work> (Architecture <concurrent>).
+	wordsize = 22
+Entity <AddSub> analyzed. Unit <AddSub> generated.
+
+Analyzing Entity <AdderSubtracter> in library <work> (Architecture <concurrent>).
+Entity <AdderSubtracter> analyzed. Unit <AdderSubtracter> generated.
+
+
+=========================================================================
+*                           HDL Synthesis                               *
+=========================================================================
+
+Performing bidirectional port resolution...
+
+Synthesizing Unit <AdderSubtracter>.
+    Related source file is "/home/chris/school/Winter_24_25/ee119b/hw3/synth/AdderSubtracter.vhd".
+    Found 1-bit xor3 for signal <S>.
+    Found 1-bit xor2 for signal <Cout$xor0000> created at line 28.
+    Summary:
+	inferred   1 Xor(s).
+Unit <AdderSubtracter> synthesized.
+
+
+Synthesizing Unit <AddSub>.
+    Related source file is "/home/chris/school/Winter_24_25/ee119b/hw3/synth/AddSub.vhd".
+Unit <AddSub> synthesized.
+
+
+Synthesizing Unit <CordicStage>.
+    Related source file is "/home/chris/school/Winter_24_25/ee119b/hw3/synth/CordicStage.vhd".
+    Found 5-bit adder for signal <X_BIn$add0000> created at line 247.
+    Found 5-bit comparator greater for signal <X_BIn$cmp_gt0000> created at line 247.
+    Found 5-bit comparator less for signal <X_BIn$cmp_lt0000> created at line 247.
+    Found 22-bit shifter arithmetic right for signal <X_BIn$shift0002> created at line 247.
+    Found 22-bit shifter arithmetic right for signal <X_BIn$shift0003> created at line 247.
+    Found 6-bit subtractor for signal <X_BIn$sub0000> created at line 247.
+    Found 1-bit xor2 for signal <XAddBarSub$xor0000>.
+    Found 22-bit shifter arithmetic right for signal <Y_BIn$shift0002> created at line 255.
+    Found 22-bit shifter arithmetic right for signal <Y_BIn$shift0003> created at line 255.
+    Summary:
+	inferred   2 Adder/Subtractor(s).
+	inferred   2 Comparator(s).
+	inferred   4 Combinational logic shifter(s).
+Unit <CordicStage> synthesized.
+
+
+Synthesizing Unit <Cordic>.
+    Related source file is "/home/chris/school/Winter_24_25/ee119b/hw3/synth/Cordic.vhd".
+WARNING:Xst:646 - Signal <ZResultBus<15><20:19>> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
+WARNING:Xst:646 - Signal <ZResultBus<15><3:0>> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
+WARNING:Xst:646 - Signal <YResultBus<15><20:19>> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
+WARNING:Xst:646 - Signal <YResultBus<15><3:0>> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
+WARNING:Xst:646 - Signal <XResultBus<15><20:19>> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
+WARNING:Xst:646 - Signal <XResultBus<15><3:0>> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
+WARNING:Xst:646 - Signal <PrevFunc> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
+WARNING:Xst:737 - Found 22-bit latch for signal <XInputBus_0>. Latches may be generated from incomplete case or if statements. We do not recommend the use of latches in FPGA/CPLD designs, as they may lead to timing problems.
+INFO:Xst:2371 - HDL ADVISOR - Logic functions respectively driving the data and gate enable inputs of this latch share common terms. This situation will potentially lead to setup/hold violations and, as a result, to simulation problems. This situation may come from an incomplete case statement (all selector values are not covered). You should carefully review if it was in your intentions to describe such a latch.
+    Found 16-bit register for signal <R>.
+    Found 22-bit comparator less for signal <DBus_0$cmp_lt0000> created at line 229.
+    Found 22-bit comparator less for signal <DBus_0$cmp_lt0001> created at line 229.
+    Found 22-bit comparator less for signal <DBus_1$cmp_lt0000> created at line 229.
+    Found 22-bit comparator less for signal <DBus_1$cmp_lt0001> created at line 229.
+    Found 22-bit comparator less for signal <DBus_10$cmp_lt0000> created at line 229.
+    Found 22-bit comparator less for signal <DBus_10$cmp_lt0001> created at line 229.
+    Found 22-bit comparator less for signal <DBus_11$cmp_lt0000> created at line 229.
+    Found 22-bit comparator less for signal <DBus_11$cmp_lt0001> created at line 229.
+    Found 22-bit comparator less for signal <DBus_12$cmp_lt0000> created at line 229.
+    Found 22-bit comparator less for signal <DBus_12$cmp_lt0001> created at line 229.
+    Found 22-bit comparator less for signal <DBus_13$cmp_lt0000> created at line 229.
+    Found 22-bit comparator less for signal <DBus_13$cmp_lt0001> created at line 229.
+    Found 22-bit comparator less for signal <DBus_14$cmp_lt0000> created at line 229.
+    Found 22-bit comparator less for signal <DBus_14$cmp_lt0001> created at line 229.
+    Found 22-bit comparator less for signal <DBus_15$cmp_lt0000> created at line 229.
+    Found 22-bit comparator less for signal <DBus_15$cmp_lt0001> created at line 229.
+    Found 22-bit comparator less for signal <DBus_2$cmp_lt0000> created at line 229.
+    Found 22-bit comparator less for signal <DBus_2$cmp_lt0001> created at line 229.
+    Found 22-bit comparator less for signal <DBus_3$cmp_lt0000> created at line 229.
+    Found 22-bit comparator less for signal <DBus_3$cmp_lt0001> created at line 229.
+    Found 22-bit comparator less for signal <DBus_4$cmp_lt0000> created at line 229.
+    Found 22-bit comparator less for signal <DBus_4$cmp_lt0001> created at line 229.
+    Found 22-bit comparator less for signal <DBus_5$cmp_lt0000> created at line 229.
+    Found 22-bit comparator less for signal <DBus_5$cmp_lt0001> created at line 229.
+    Found 22-bit comparator less for signal <DBus_6$cmp_lt0000> created at line 229.
+    Found 22-bit comparator less for signal <DBus_6$cmp_lt0001> created at line 229.
+    Found 22-bit comparator less for signal <DBus_7$cmp_lt0000> created at line 229.
+    Found 22-bit comparator less for signal <DBus_7$cmp_lt0001> created at line 229.
+    Found 22-bit comparator less for signal <DBus_8$cmp_lt0000> created at line 229.
+    Found 22-bit comparator less for signal <DBus_8$cmp_lt0001> created at line 229.
+    Found 22-bit comparator less for signal <DBus_9$cmp_lt0000> created at line 229.
+    Found 22-bit comparator less for signal <DBus_9$cmp_lt0001> created at line 229.
+    Found 5-bit register for signal <Func_temp>.
+    Found 22-bit register for signal <X_temp>.
+    Found 22-bit register for signal <Y_temp>.
+    Summary:
+	inferred  65 D-type flip-flop(s).
+	inferred  32 Comparator(s).
+Unit <Cordic> synthesized.
+
+
+=========================================================================
+HDL Synthesis Report
+
+Macro Statistics
+# Adders/Subtractors                                   : 32
+ 5-bit adder                                           : 16
+ 6-bit subtractor                                      : 16
+# Registers                                            : 4
+ 16-bit register                                       : 1
+ 22-bit register                                       : 2
+ 5-bit register                                        : 1
+# Latches                                              : 1
+ 22-bit latch                                          : 1
+# Comparators                                          : 64
+ 22-bit comparator less                                : 32
+ 5-bit comparator greater                              : 16
+ 5-bit comparator less                                 : 16
+# Logic shifters                                       : 64
+ 22-bit shifter arithmetic right                       : 64
+# Xors                                                 : 2128
+ 1-bit xor2                                            : 1072
+ 1-bit xor3                                            : 1056
+
+=========================================================================
+
+=========================================================================
+*                       Advanced HDL Synthesis                          *
+=========================================================================
+
+WARNING:Xst:1710 - FF/Latch <0> (without init value) has a constant value of 0 in block <2>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <X_temp_0> (without init value) has a constant value of 0 in block <Cordic>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <X_temp_1> (without init value) has a constant value of 0 in block <Cordic>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <X_temp_2> (without init value) has a constant value of 0 in block <Cordic>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <X_temp_3> (without init value) has a constant value of 0 in block <Cordic>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <Y_temp_0> (without init value) has a constant value of 0 in block <Cordic>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <Y_temp_1> (without init value) has a constant value of 0 in block <Cordic>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <Y_temp_2> (without init value) has a constant value of 0 in block <Cordic>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <Y_temp_3> (without init value) has a constant value of 0 in block <Cordic>. This FF/Latch will be trimmed during the optimization process.
+
+=========================================================================
+Advanced HDL Synthesis Report
+
+Macro Statistics
+# Adders/Subtractors                                   : 32
+ 5-bit adder                                           : 16
+ 6-bit subtractor                                      : 16
+# Registers                                            : 65
+ Flip-Flops                                            : 65
+# Latches                                              : 1
+ 22-bit latch                                          : 1
+# Comparators                                          : 64
+ 22-bit comparator less                                : 32
+ 5-bit comparator greater                              : 16
+ 5-bit comparator less                                 : 16
+# Logic shifters                                       : 64
+ 22-bit shifter arithmetic right                       : 64
+# Xors                                                 : 2128
+ 1-bit xor2                                            : 1072
+ 1-bit xor3                                            : 1056
+
+=========================================================================
+
+=========================================================================
+*                         Low Level Synthesis                           *
+=========================================================================
+WARNING:Xst:1710 - FF/Latch <X_temp_0> (without init value) has a constant value of 0 in block <Cordic>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <X_temp_1> (without init value) has a constant value of 0 in block <Cordic>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <X_temp_2> (without init value) has a constant value of 0 in block <Cordic>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <X_temp_3> (without init value) has a constant value of 0 in block <Cordic>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <Y_temp_0> (without init value) has a constant value of 0 in block <Cordic>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <Y_temp_1> (without init value) has a constant value of 0 in block <Cordic>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <Y_temp_2> (without init value) has a constant value of 0 in block <Cordic>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <Y_temp_3> (without init value) has a constant value of 0 in block <Cordic>. This FF/Latch will be trimmed during the optimization process.
+INFO:Xst:2261 - The FF/Latch <X_temp_19> in Unit <Cordic> is equivalent to the following 2 FFs/Latches, which will be removed : <X_temp_20> <X_temp_21> 
+INFO:Xst:2261 - The FF/Latch <Y_temp_19> in Unit <Cordic> is equivalent to the following 2 FFs/Latches, which will be removed : <Y_temp_20> <Y_temp_21> 
+WARNING:Xst:1710 - FF/Latch <2> (without init value) has a constant value of 0 in block <LPM_LATCH_1>. This FF/Latch will be trimmed during the optimization process.
+INFO:Xst:2261 - The FF/Latch <XInputBus_0_19> in Unit <Cordic> is equivalent to the following 2 FFs/Latches, which will be removed : <XInputBus_0_20> <XInputBus_0_21> 
+
+Optimizing unit <Cordic> ...
+
+Optimizing unit <AddSub> ...
+
+Optimizing unit <CordicStage> ...
+
+Mapping all equations...
+Building and optimizing final netlist ...
+Found area constraint ratio of 100 (+ 5) on block Cordic, actual ratio is 18.
+FlipFlop Func_temp_0 has been replicated 3 time(s)
+INFO:Xst:1843 - HDL ADVISOR - FlipFlop Func_temp_0 connected to a primary input has been replicated
+FlipFlop Func_temp_1 has been replicated 3 time(s)
+INFO:Xst:1843 - HDL ADVISOR - FlipFlop Func_temp_1 connected to a primary input has been replicated
+FlipFlop Func_temp_3 has been replicated 7 time(s)
+INFO:Xst:1843 - HDL ADVISOR - FlipFlop Func_temp_3 connected to a primary input has been replicated
+FlipFlop Func_temp_4 has been replicated 4 time(s)
+INFO:Xst:1843 - HDL ADVISOR - FlipFlop Func_temp_4 connected to a primary input has been replicated
+FlipFlop Y_temp_19 has been replicated 2 time(s)
+INFO:Xst:1843 - HDL ADVISOR - FlipFlop Y_temp_19 connected to a primary input has been replicated
+
+Final Macro Processing ...
+
+=========================================================================
+Final Register Report
+
+Macro Statistics
+# Registers                                            : 72
+ Flip-Flops                                            : 72
+
+=========================================================================
+
+=========================================================================
+*                           Partition Report                            *
+=========================================================================
+
+Partition Implementation Status
+-------------------------------
+
+  No Partitions were found in this design.
+
+-------------------------------
+
+=========================================================================
+*                            Final Report                               *
+=========================================================================
+Final Results
+RTL Top Level Output File Name     : Cordic.ngr
+Top Level Output File Name         : Cordic
+Output Format                      : NGC
+Optimization Goal                  : Speed
+Keep Hierarchy                     : No
+
+Design Statistics
+# IOs                              : 54
+
+Cell Usage :
+# BELS                             : 8766
+#      GND                         : 1
+#      INV                         : 1
+#      LUT2                        : 71
+#      LUT2_D                      : 23
+#      LUT2_L                      : 24
+#      LUT3                        : 964
+#      LUT3_D                      : 243
+#      LUT3_L                      : 176
+#      LUT4                        : 4615
+#      LUT4_D                      : 892
+#      LUT4_L                      : 585
+#      MUXF5                       : 1170
+#      VCC                         : 1
+# FlipFlops/Latches                : 91
+#      FD                          : 56
+#      FDS                         : 16
+#      LD                          : 19
+# Clock Buffers                    : 1
+#      BUFGP                       : 1
+# IO Buffers                       : 53
+#      IBUF                        : 37
+#      OBUF                        : 16
+=========================================================================
+
+Device utilization summary:
+---------------------------
+
+Selected Device : 3s1200efg320-4 
+
+ Number of Slices:                     3885  out of   8672    44%  
+ Number of Slice Flip Flops:             91  out of  17344     0%  
+ Number of 4 input LUTs:               7594  out of  17344    43%  
+ Number of IOs:                          54
+ Number of bonded IOBs:                  54  out of    250    21%  
+ Number of GCLKs:                         1  out of     24     4%  
+
+---------------------------
+Partition Resource Summary:
+---------------------------
+
+  No Partitions were found in this design.
+
+---------------------------
+
+
+=========================================================================
+TIMING REPORT
+
+NOTE: THESE TIMING NUMBERS ARE ONLY A SYNTHESIS ESTIMATE.
+      FOR ACCURATE TIMING INFORMATION PLEASE REFER TO THE TRACE REPORT
+      GENERATED AFTER PLACE-and-ROUTE.
+
+Clock Information:
+------------------
+----------------------------------------+------------------------+-------+
+Clock Signal                            | Clock buffer(FF name)  | Load  |
+----------------------------------------+------------------------+-------+
+CLK                                     | BUFGP                  | 72    |
+ZResultBus<0><0>(XInputBus_0_not00011:O)| NONE(*)(XInputBus_0_0) | 19    |
+----------------------------------------+------------------------+-------+
+(*) This 1 clock signal(s) are generated by combinatorial logic,
+and XST is not able to identify which are the primary clock signals.
+Please use the CLOCK_SIGNAL constraint to specify the clock signal(s) generated by combinatorial logic.
+INFO:Xst:2169 - HDL ADVISOR - Some clock signals were not automatically buffered by XST with BUFG/BUFR resources. Please use the buffer_type constraint in order to insert these buffers to the clock signals to help prevent skew problems.
+
+Asynchronous Control Signals Information:
+----------------------------------------
+No asynchronous control signals found in this design
+
+Timing Summary:
+---------------
+Speed Grade: -4
+
+   Minimum period: 188.000ns (Maximum Frequency: 5.319MHz)
+   Minimum input arrival time before clock: 2.283ns
+   Maximum output required time after clock: 4.283ns
+   Maximum combinational path delay: No path found
+
+Timing Detail:
+--------------
+All values displayed in nanoseconds (ns)
+
+=========================================================================
+Timing constraint: Default period analysis for Clock 'CLK'
+  Clock period: 188.000ns (frequency: 5.319MHz)
+  Total number of paths / destination ports: 19715082232402519019770997065590849404928 / 32
+-------------------------------------------------------------------------
+Delay:               188.000ns (Levels of Logic = 143)
+  Source:            Func_temp_2 (FF)
+  Destination:       R_15 (FF)
+  Source Clock:      CLK rising
+  Destination Clock: CLK rising
+
+  Data Path: Func_temp_2 to R_15
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FD:C->Q              14   0.591   1.175  Func_temp_2 (Func_temp_2)
+     LUT4:I0->O          267   0.704   1.371  ResultComb<0>21 (ZConstantBus<0><11>)
+     LUT3:I2->O           12   0.704   0.996  YInputBus_0_mux0000<7>1 (CordicStage_gen[0].CordicStage_i/X_BIn<2>_bdd8)
+     LUT3:I2->O            1   0.704   0.499  CordicStage_gen[0].CordicStage_i/XAdder/AddSub_gen[7].AddSub_x/Cout1_SW1 (N4258)
+     LUT4_D:I1->LO         1   0.704   0.104  CordicStage_gen[0].CordicStage_i/XAdder/AddSub_gen[7].AddSub_x/Cout1 (N15690)
+     LUT4:I3->O           15   0.704   1.052  CordicStage_gen[0].CordicStage_i/XAdder/AddSub_gen[8].AddSub_x/Cout1 (CordicStage_gen[0].CordicStage_i/XAdder/CarryBus<8>)
+     LUT3:I2->O           17   0.704   1.086  CordicStage_gen[0].CordicStage_i/XAdder/AddSub_gen[12].AddSub_x/Cout1 (CordicStage_gen[0].CordicStage_i/XAdder/CarryBus<12>)
+     LUT3:I2->O           14   0.704   1.079  CordicStage_gen[0].CordicStage_i/XOut<21>1_1 (CordicStage_gen[0].CordicStage_i/XOut<21>1)
+     LUT4_L:I1->LO         1   0.704   0.104  DBus_1_mux000024_SW4 (N7258)
+     LUT4:I3->O           88   0.704   1.280  DBus_1_mux000024 (DBus<1>)
+     MUXF5:S->O            5   0.739   0.808  CordicStage_gen[1].CordicStage_i/YAdder/AddSub_gen[6].AddSub_x/Cout1_SW1 (N2911)
+     LUT3:I0->O            3   0.704   0.566  CordicStage_gen[1].CordicStage_i/YAdder/AddSub_gen[5].AddSub_x/Cout1_SW1_SW0 (N10434)
+     LUT3:I2->O            2   0.704   0.526  CordicStage_gen[1].CordicStage_i/YAdder/AddSub_gen[5].AddSub_x/Cout1_SW1 (N3820)
+     LUT3:I1->O           10   0.704   0.882  CordicStage_gen[1].CordicStage_i/YAdder/AddSub_gen[9].AddSub_x/Cout1 (CordicStage_gen[1].CordicStage_i/YAdder/CarryBus<9>)
+     MUXF5:S->O           10   0.739   0.886  CordicStage_gen[1].CordicStage_i/YAdder/AddSub_gen[21].AddSub_x/Mxor_S_xo<0>1 (CordicStage_gen[2].CordicStage_i/X_BIn<19>)
+     LUT4_D:I3->O          3   0.704   0.566  DBus_2_mux000023_SW0 (N3618)
+     LUT4_D:I2->LO         1   0.704   0.104  DBus_2_mux000023_1 (N16358)
+     LUT4:I3->O           16   0.704   1.034  CordicStage_gen[2].CordicStage_i/XAddBarSub1_1 (CordicStage_gen[2].CordicStage_i/XAddBarSub1)
+     MUXF5:S->O            4   0.739   0.622  CordicStage_gen[2].CordicStage_i/XAdder/AddSub_gen[5].AddSub_x/Cout1_SW0 (N3425)
+     LUT3_D:I2->LO         1   0.704   0.135  CordicStage_gen[2].CordicStage_i/XAdder/AddSub_gen[6].AddSub_x/Cout1_SW0 (N15643)
+     LUT3:I2->O            4   0.704   0.591  CordicStage_gen[2].CordicStage_i/XAdder/AddSub_gen[6].AddSub_x/Cout1_SW2 (N3822)
+     LUT4:I3->O            1   0.704   0.000  CordicStage_gen[2].CordicStage_i/XAdder/AddSub_gen[4].AddSub_x/Cout1_SW0_G (N13297)
+     MUXF5:I1->O           2   0.321   0.526  CordicStage_gen[2].CordicStage_i/XAdder/AddSub_gen[4].AddSub_x/Cout1_SW0 (N4789)
+     LUT3:I1->O           18   0.704   1.068  CordicStage_gen[2].CordicStage_i/XAdder/AddSub_gen[10].AddSub_x/Cout1_1 (CordicStage_gen[2].CordicStage_i/XAdder/AddSub_gen[10].AddSub_x/Cout1)
+     MUXF5:S->O           11   0.739   0.937  CordicStage_gen[2].CordicStage_i/XOut<21>1 (CordicStage_gen[3].CordicStage_i/Y_BIn<18>)
+     LUT4:I3->O           15   0.704   1.021  DBus_3_mux000023 (DBus_3_mux000023)
+     LUT4:I3->O           18   0.704   1.072  DBus_3_mux000024_1 (DBus_3_mux000024)
+     LUT4:I3->O            4   0.704   0.587  CordicStage_gen[3].CordicStage_i/ZAdder/AddSub_gen[1].AddSub_x/Cout1 (CordicStage_gen[3].CordicStage_i/ZAdder/CarryBus<1>)
+     MUXF5:S->O            2   0.739   0.447  CordicStage_gen[3].CordicStage_i/ZAdder/AddSub_gen[3].AddSub_x/Cout1 (CordicStage_gen[3].CordicStage_i/ZAdder/CarryBus<3>)
+     MUXF5:S->O            3   0.739   0.531  CordicStage_gen[3].CordicStage_i/ZAdder/AddSub_gen[5].AddSub_x/Cout1 (CordicStage_gen[3].CordicStage_i/ZAdder/CarryBus<5>)
+     MUXF5:S->O            3   0.739   0.531  CordicStage_gen[3].CordicStage_i/ZAdder/AddSub_gen[7].AddSub_x/Cout1 (CordicStage_gen[3].CordicStage_i/ZAdder/CarryBus<7>)
+     MUXF5:S->O            3   0.739   0.531  CordicStage_gen[3].CordicStage_i/ZAdder/AddSub_gen[9].AddSub_x/Cout1 (CordicStage_gen[3].CordicStage_i/ZAdder/CarryBus<9>)
+     MUXF5:S->O            3   0.739   0.531  CordicStage_gen[3].CordicStage_i/ZAdder/AddSub_gen[11].AddSub_x/Cout1 (CordicStage_gen[3].CordicStage_i/ZAdder/CarryBus<11>)
+     MUXF5:S->O            7   0.739   0.712  CordicStage_gen[3].CordicStage_i/ZAdder/AddSub_gen[13].AddSub_x/Cout1 (CordicStage_gen[3].CordicStage_i/ZAdder/CarryBus<13>)
+     LUT4:I3->O           15   0.704   1.021  CordicStage_gen[3].CordicStage_i/ZAdder/AddSub_gen[21].AddSub_x/Mxor_S_xo<0>1_2 (CordicStage_gen[3].CordicStage_i/ZAdder/AddSub_gen[21].AddSub_x/Mxor_S_xo<0>1_1)
+     LUT4:I3->O           16   0.704   1.034  CordicStage_gen[4].CordicStage_i/XAddBarSub1_1 (CordicStage_gen[4].CordicStage_i/XAddBarSub1)
+     MUXF5:S->O            2   0.739   0.622  CordicStage_gen[4].CordicStage_i/XAdder/AddSub_gen[15].AddSub_x/Cout1_SW1 (N2824)
+     LUT3_D:I0->LO         1   0.704   0.104  CordicStage_gen[4].CordicStage_i/XAdder/AddSub_gen[14].AddSub_x/Cout1_SW0 (N15597)
+     LUT4:I3->O            7   0.704   0.712  CordicStage_gen[4].CordicStage_i/XAdder/AddSub_gen[16].AddSub_x/Cout1_SW4 (N3894)
+     LUT4:I3->O            2   0.704   0.451  CordicStage_gen[4].CordicStage_i/XAdder/AddSub_gen[18].AddSub_x/Cout1_SW1 (N4694)
+     LUT4:I3->O            1   0.704   0.000  CordicStage_gen[4].CordicStage_i/XAdder/AddSub_gen[12].AddSub_x/Cout1_SW4_F (N13540)
+     MUXF5:I0->O           1   0.321   0.499  CordicStage_gen[4].CordicStage_i/XAdder/AddSub_gen[12].AddSub_x/Cout1_SW4 (N6053)
+     LUT3:I1->O           13   0.704   0.987  CordicStage_gen[4].CordicStage_i/XOut<21>1 (CordicStage_gen[5].CordicStage_i/Y_BIn<16>)
+     LUT4:I3->O           17   0.704   1.055  DBus_5_mux000023_1 (DBus_5_mux0000231)
+     LUT4:I3->O           18   0.704   1.068  DBus_5_mux000024_1 (DBus_5_mux000024)
+     MUXF5:S->O            1   0.739   0.595  CordicStage_gen[5].CordicStage_i/ZAdder/AddSub_gen[2].AddSub_x/Cout1_SW1 (N9221)
+     LUT3:I0->O            3   0.704   0.531  CordicStage_gen[5].CordicStage_i/ZAdder/AddSub_gen[4].AddSub_x/Cout1 (CordicStage_gen[5].CordicStage_i/ZAdder/CarryBus<4>)
+     MUXF5:S->O            3   0.739   0.531  CordicStage_gen[5].CordicStage_i/ZAdder/AddSub_gen[6].AddSub_x/Cout1 (CordicStage_gen[5].CordicStage_i/ZAdder/CarryBus<6>)
+     MUXF5:S->O            3   0.739   0.531  CordicStage_gen[5].CordicStage_i/ZAdder/AddSub_gen[8].AddSub_x/Cout1 (CordicStage_gen[5].CordicStage_i/ZAdder/CarryBus<8>)
+     MUXF5:S->O            2   0.739   0.447  CordicStage_gen[5].CordicStage_i/ZAdder/AddSub_gen[10].AddSub_x/Cout1 (CordicStage_gen[5].CordicStage_i/ZAdder/CarryBus<10>)
+     MUXF5:S->O           10   0.739   0.886  CordicStage_gen[5].CordicStage_i/ZAdder/AddSub_gen[12].AddSub_x/Cout1 (CordicStage_gen[5].CordicStage_i/ZAdder/CarryBus<12>)
+     LUT4:I3->O           15   0.704   1.021  CordicStage_gen[5].CordicStage_i/ZAdder/AddSub_gen[21].AddSub_x/Mxor_S_xo<0>1_1 (CordicStage_gen[5].CordicStage_i/ZAdder/AddSub_gen[21].AddSub_x/Mxor_S_xo<0>1)
+     LUT4:I3->O           14   0.704   1.000  CordicStage_gen[6].CordicStage_i/XAddBarSub1_1 (CordicStage_gen[6].CordicStage_i/XAddBarSub1)
+     MUXF5:S->O            3   0.739   0.535  CordicStage_gen[6].CordicStage_i/XAdder/AddSub_gen[14].AddSub_x/Cout1_SW1 (N2857)
+     LUT4_D:I3->LO         1   0.704   0.104  CordicStage_gen[6].CordicStage_i/XAdder/AddSub_gen[15].AddSub_x/Cout1_SW4 (N15610)
+     LUT4:I3->O            3   0.704   0.535  CordicStage_gen[6].CordicStage_i/XAdder/AddSub_gen[17].AddSub_x/Cout1_SW5 (N3883)
+     LUT4:I3->O            2   0.704   0.451  CordicStage_gen[6].CordicStage_i/XAdder/AddSub_gen[18].AddSub_x/Cout1_SW4 (N4683)
+     LUT4:I3->O            1   0.704   0.000  CordicStage_gen[6].CordicStage_i/XAdder/AddSub_gen[13].AddSub_x/Cout1_SW10_G (N13545)
+     MUXF5:I1->O           1   0.321   0.499  CordicStage_gen[6].CordicStage_i/XAdder/AddSub_gen[13].AddSub_x/Cout1_SW10 (N6050)
+     LUT3:I1->O           17   0.704   1.055  CordicStage_gen[6].CordicStage_i/XOut<21>1 (CordicStage_gen[7].CordicStage_i/Y_BIn<14>)
+     LUT4:I3->O           19   0.704   1.089  DBus_7_mux000023_1 (DBus_7_mux0000231)
+     LUT4:I3->O           14   0.704   1.000  DBus_7_mux000024_1 (DBus_7_mux000024)
+     MUXF5:S->O            2   0.739   0.622  CordicStage_gen[7].CordicStage_i/YAdder/AddSub_gen[12].AddSub_x/Cout1_SW3 (N2872)
+     LUT3:I0->O            2   0.704   0.622  CordicStage_gen[7].CordicStage_i/YAdder/AddSub_gen[11].AddSub_x/Cout1_SW3 (N3264)
+     LUT3:I0->O            3   0.704   0.535  CordicStage_gen[7].CordicStage_i/YAdder/AddSub_gen[7].AddSub_x/Cout1_SW4 (N4595)
+     LUT4:I3->O            6   0.704   0.704  CordicStage_gen[7].CordicStage_i/YAdder/AddSub_gen[13].AddSub_x/Cout1_SW6 (N5472)
+     LUT4:I2->O            1   0.704   0.000  CordicStage_gen[7].CordicStage_i/YAdder/AddSub_gen[21].AddSub_x/Mxor_S_xo<0>1_1_F (N15224)
+     MUXF5:I0->O          13   0.321   0.987  CordicStage_gen[7].CordicStage_i/YAdder/AddSub_gen[21].AddSub_x/Mxor_S_xo<0>1_1 (CordicStage_gen[7].CordicStage_i/YAdder/AddSub_gen[21].AddSub_x/Mxor_S_xo<0>1)
+     LUT4:I3->O            4   0.704   0.591  CordicStage_gen[8].CordicStage_i/ZAdder/AddSub_gen[8].AddSub_x/Cout1_SW0_SW0_SW2 (N11563)
+     LUT4:I3->O           17   0.704   1.051  CordicStage_gen[8].CordicStage_i/XAddBarSub1_1 (CordicStage_gen[8].CordicStage_i/XAddBarSub1)
+     MUXF5:S->O            3   0.739   0.535  CordicStage_gen[8].CordicStage_i/XAdder/AddSub_gen[12].AddSub_x/Cout1_SW1 (N2923)
+     LUT4:I3->O            5   0.704   0.637  CordicStage_gen[8].CordicStage_i/XAdder/AddSub_gen[13].AddSub_x/Cout1_SW4 (N3306)
+     LUT4:I3->O            1   0.704   0.000  CordicStage_gen[8].CordicStage_i/XAdder/AddSub_gen[11].AddSub_x/Cout1_SW4_G (N13385)
+     MUXF5:I1->O           6   0.321   0.673  CordicStage_gen[8].CordicStage_i/XAdder/AddSub_gen[11].AddSub_x/Cout1_SW4 (N4550)
+     LUT4_D:I3->LO         1   0.704   0.104  CordicStage_gen[8].CordicStage_i/XAdder/AddSub_gen[17].AddSub_x/Cout1_SW4 (N15811)
+     LUT4:I3->O            1   0.704   0.424  CordicStage_gen[8].CordicStage_i/XAdder/AddSub_gen[18].AddSub_x/Cout1_SW3 (N6128)
+     LUT4:I3->O            1   0.704   0.000  CordicStage_gen[8].CordicStage_i/XOut<21>1_F (N13604)
+     MUXF5:I0->O          29   0.321   1.296  CordicStage_gen[8].CordicStage_i/XOut<21>1 (CordicStage_gen[9].CordicStage_i/Y_BIn<13>)
+     LUT4_D:I2->O         14   0.704   1.004  DBus_9_mux000023_1 (DBus_9_mux0000231)
+     LUT4:I3->O           78   0.704   1.277  CordicStage_gen[9].CordicStage_i/XAddBarSub1 (CordicStage_gen[9].CordicStage_i/XAddBarSub)
+     MUXF5:S->O            4   0.739   0.762  CordicStage_gen[9].CordicStage_i/XAdder/AddSub_gen[2].AddSub_x/Cout1_SW1 (N11076)
+     LUT3:I0->O           20   0.704   1.277  CordicStage_gen[9].CordicStage_i/XAdder/AddSub_gen[3].AddSub_x/Cout1 (CordicStage_gen[9].CordicStage_i/XAdder/CarryBus<3>)
+     LUT4:I0->O            1   0.704   0.000  CordicStage_gen[9].CordicStage_i/XAdder/AddSub_gen[9].AddSub_x/Cout1_F (N15218)
+     MUXF5:I0->O          13   0.321   0.983  CordicStage_gen[9].CordicStage_i/XAdder/AddSub_gen[9].AddSub_x/Cout1 (CordicStage_gen[9].CordicStage_i/XAdder/CarryBus<9>)
+     MUXF5:S->O            3   0.739   0.566  DBus_10_mux000023_SW0 (N4853)
+     LUT4:I2->O           15   0.704   1.052  DBus_10_mux000023_1 (DBus_10_mux0000231)
+     LUT3:I2->O           19   0.704   1.085  DBus_10_mux000024_1 (DBus_10_mux000024)
+     MUXF5:S->O            3   0.739   0.535  CordicStage_gen[10].CordicStage_i/YAdder/AddSub_gen[10].AddSub_x/Cout1_SW3 (N4003)
+     LUT4:I3->O            1   0.704   0.000  CordicStage_gen[10].CordicStage_i/YAdder/AddSub_gen[9].AddSub_x/Cout1_SW8_G (N13677)
+     MUXF5:I1->O           3   0.321   0.535  CordicStage_gen[10].CordicStage_i/YAdder/AddSub_gen[9].AddSub_x/Cout1_SW8 (N5358)
+     LUT4:I3->O            3   0.704   0.535  CordicStage_gen[10].CordicStage_i/YAdder/AddSub_gen[13].AddSub_x/Cout1_SW1 (N6113)
+     LUT4:I3->O            1   0.704   0.000  CordicStage_gen[10].CordicStage_i/YAdder/AddSub_gen[17].AddSub_x/Cout1_F (N13600)
+     MUXF5:I0->O          18   0.321   1.072  CordicStage_gen[10].CordicStage_i/YAdder/AddSub_gen[17].AddSub_x/Cout1 (CordicStage_gen[10].CordicStage_i/YAdder/CarryBus<17>)
+     LUT4:I3->O           16   0.704   1.034  CordicStage_gen[10].CordicStage_i/YAdder/AddSub_gen[21].AddSub_x/Mxor_S_xo<0>1_1 (CordicStage_gen[10].CordicStage_i/YAdder/AddSub_gen[21].AddSub_x/Mxor_S_xo<0>1)
+     MUXF5:S->O            8   0.739   0.792  CordicStage_gen[10].CordicStage_i/XOut<21>1_SW1 (N8412)
+     LUT3_D:I2->O          2   0.704   0.451  DBus_11_mux000023_SW10 (N9750)
+     LUT4:I3->O           12   0.704   0.961  DBus_11_mux000024_1 (DBus_11_mux000024)
+     MUXF5:S->O            4   0.739   0.591  CordicStage_gen[11].CordicStage_i/YAdder/AddSub_gen[8].AddSub_x/Cout1_SW1 (N4024)
+     LUT4_D:I3->LO         1   0.704   0.104  CordicStage_gen[11].CordicStage_i/YAdder/AddSub_gen[9].AddSub_x/Cout1_SW3 (N15737)
+     LUT4:I3->O            3   0.704   0.535  CordicStage_gen[11].CordicStage_i/YAdder/AddSub_gen[11].AddSub_x/Cout1_SW2 (N5461)
+     LUT4:I3->O            2   0.704   0.451  CordicStage_gen[11].CordicStage_i/YAdder/AddSub_gen[13].AddSub_x/Cout1_SW6 (N6126)
+     LUT4:I3->O            1   0.704   0.000  CordicStage_gen[11].CordicStage_i/YAdder/AddSub_gen[16].AddSub_x/Cout1_G (N13603)
+     MUXF5:I1->O           7   0.321   0.712  CordicStage_gen[11].CordicStage_i/YAdder/AddSub_gen[16].AddSub_x/Cout1 (CordicStage_gen[11].CordicStage_i/YAdder/CarryBus<16>)
+     LUT4_D:I3->LO         1   0.704   0.104  CordicStage_gen[11].CordicStage_i/YAdder/AddSub_gen[21].AddSub_x/Mxor_S_xo<0>1_1 (N16375)
+     LUT4:I3->O           17   0.704   1.086  DBus_12_mux000023_1 (DBus_12_mux0000231)
+     LUT3:I2->O           18   0.704   1.068  DBus_12_mux000024_1 (DBus_12_mux000024)
+     MUXF5:S->O            4   0.739   0.762  CordicStage_gen[12].CordicStage_i/YAdder/AddSub_gen[8].AddSub_x/Cout1_SW1 (N4805)
+     LUT3_D:I0->LO         1   0.704   0.104  CordicStage_gen[12].CordicStage_i/YAdder/AddSub_gen[7].AddSub_x/Cout1_SW0 (N15798)
+     LUT4:I3->O            3   0.704   0.535  CordicStage_gen[12].CordicStage_i/YAdder/AddSub_gen[9].AddSub_x/Cout1_SW0 (N6119)
+     LUT4:I3->O            3   0.704   0.535  CordicStage_gen[12].CordicStage_i/YAdder/AddSub_gen[11].AddSub_x/Cout1_SW4 (N7006)
+     LUT4:I3->O            1   0.704   0.000  CordicStage_gen[12].CordicStage_i/YAdder/AddSub_gen[15].AddSub_x/Cout1_F (N13766)
+     MUXF5:I0->O           8   0.321   0.761  CordicStage_gen[12].CordicStage_i/YAdder/AddSub_gen[15].AddSub_x/Cout1 (CordicStage_gen[12].CordicStage_i/YAdder/CarryBus<15>)
+     LUT4:I3->O           14   0.704   1.004  CordicStage_gen[12].CordicStage_i/YAdder/AddSub_gen[21].AddSub_x/Mxor_S_xo<0>1_1 (CordicStage_gen[12].CordicStage_i/YAdder/AddSub_gen[21].AddSub_x/Mxor_S_xo<0>1)
+     LUT4:I3->O           16   0.704   1.069  DBus_13_mux000023_SW7 (N8398)
+     LUT3:I2->O           13   0.704   0.983  DBus_13_mux000024_1 (DBus_13_mux000024)
+     MUXF5:S->O            5   0.739   0.637  CordicStage_gen[13].CordicStage_i/YAdder/AddSub_gen[6].AddSub_x/Cout1_SW1 (N4817)
+     LUT4_D:I3->LO         1   0.704   0.104  CordicStage_gen[13].CordicStage_i/YAdder/AddSub_gen[7].AddSub_x/Cout1_SW1 (N15808)
+     LUT4:I3->O            6   0.704   0.673  CordicStage_gen[13].CordicStage_i/YAdder/AddSub_gen[9].AddSub_x/Cout1_SW1 (N6108)
+     LUT4:I3->O            3   0.704   0.566  CordicStage_gen[13].CordicStage_i/YAdder/AddSub_gen[11].AddSub_x/Cout1_SW5 (N7010)
+     LUT3:I2->O            3   0.704   0.535  CordicStage_gen[13].CordicStage_i/YAdder/AddSub_gen[21].AddSub_x/Mxor_S_xo<0>1_SW2 (N10952)
+     LUT4_D:I3->O         12   0.704   0.965  CordicStage_gen[13].CordicStage_i/YAdder/AddSub_gen[21].AddSub_x/Mxor_S_xo<0>1_1 (CordicStage_gen[13].CordicStage_i/YAdder/AddSub_gen[21].AddSub_x/Mxor_S_xo<0>1)
+     LUT4_D:I3->O          8   0.704   0.761  DBus_14_mux000023_1 (DBus_14_mux0000231)
+     LUT4:I3->O            2   0.704   0.482  CordicStage_gen[14].CordicStage_i/YAdder/AddSub_0/Cout1 (CordicStage_gen[14].CordicStage_i/YAdder/CarryBus<0>)
+     LUT4_D:I2->LO         1   0.704   0.104  CordicStage_gen[14].CordicStage_i/YAdder/AddSub_gen[1].AddSub_x/Cout1 (N15240)
+     LUT4:I3->O            3   0.704   0.566  CordicStage_gen[14].CordicStage_i/YAdder/AddSub_gen[2].AddSub_x/Cout1 (CordicStage_gen[14].CordicStage_i/YAdder/CarryBus<2>)
+     LUT3:I2->O            5   0.704   0.633  CordicStage_gen[14].CordicStage_i/YAdder/AddSub_gen[4].AddSub_x/Cout1 (CordicStage_gen[14].CordicStage_i/YAdder/CarryBus<4>)
+     MUXF5:S->O            3   0.739   0.535  CordicStage_gen[14].CordicStage_i/YAdder/AddSub_gen[10].AddSub_x/Cout1 (CordicStage_gen[14].CordicStage_i/YAdder/CarryBus<10>)
+     LUT4_D:I3->LO         1   0.704   0.104  CordicStage_gen[14].CordicStage_i/YAdder/AddSub_gen[12].AddSub_x/Cout1 (N15469)
+     LUT4:I3->O            1   0.704   0.424  CordicStage_gen[14].CordicStage_i/YAdder/AddSub_gen[13].AddSub_x/Cout1 (CordicStage_gen[14].CordicStage_i/YAdder/CarryBus<13>)
+     LUT4_D:I3->O          6   0.704   0.673  CordicStage_gen[14].CordicStage_i/YAdder/AddSub_gen[15].AddSub_x/Cout1 (CordicStage_gen[14].CordicStage_i/YAdder/CarryBus<15>)
+     LUT4:I3->O           10   0.704   0.882  CordicStage_gen[14].CordicStage_i/YAdder/AddSub_gen[21].AddSub_x/Mxor_S_xo<0>1_1 (CordicStage_gen[14].CordicStage_i/YAdder/AddSub_gen[21].AddSub_x/Mxor_S_xo<0>1)
+     MUXF5:S->O            2   0.739   0.451  DBus_15_mux000023_SW4 (N9337)
+     LUT4:I3->O           17   0.704   1.051  CordicStage_gen[15].CordicStage_i/XAddBarSub1 (CordicStage_gen[15].CordicStage_i/XAddBarSub)
+     MUXF5:S->O            2   0.739   0.451  CordicStage_gen[15].CordicStage_i/XAdder/AddSub_gen[2].AddSub_x/Cout1_SW0 (N2513)
+     LUT4:I3->O            1   0.704   0.000  CordicStage_gen[15].CordicStage_i/XAdder/AddSub_gen[4].AddSub_x/Cout1_F (N14134)
+     MUXF5:I0->O           6   0.321   0.669  CordicStage_gen[15].CordicStage_i/XAdder/AddSub_gen[4].AddSub_x/Cout1 (CordicStage_gen[15].CordicStage_i/XAdder/CarryBus<4>)
+     MUXF5:S->O            3   0.739   0.535  CordicStage_gen[15].CordicStage_i/XAdder/AddSub_gen[8].AddSub_x/Cout1 (CordicStage_gen[15].CordicStage_i/XAdder/CarryBus<8>)
+     LUT4_D:I3->LO         1   0.704   0.104  CordicStage_gen[15].CordicStage_i/XAdder/AddSub_gen[10].AddSub_x/Cout1 (N15470)
+     LUT4:I3->O            3   0.704   0.535  CordicStage_gen[15].CordicStage_i/XAdder/AddSub_gen[12].AddSub_x/Cout1 (CordicStage_gen[15].CordicStage_i/XAdder/CarryBus<12>)
+     LUT4_D:I3->LO         1   0.704   0.104  CordicStage_gen[15].CordicStage_i/XAdder/AddSub_gen[14].AddSub_x/Cout1 (N15465)
+     LUT4:I3->O            2   0.704   0.451  CordicStage_gen[15].CordicStage_i/XAdder/AddSub_gen[16].AddSub_x/Cout1 (CordicStage_gen[15].CordicStage_i/XAdder/CarryBus<16>)
+     LUT4_L:I3->LO         1   0.704   0.104  CordicStage_gen[15].CordicStage_i/XAdder/AddSub_gen[18].AddSub_x/Cout1 (CordicStage_gen[15].CordicStage_i/XAdder/CarryBus<18>)
+     LUT4:I3->O            1   0.704   0.424  CordicStage_gen[15].CordicStage_i/XAdder/AddSub_gen[20].AddSub_x/Cout1 (CordicStage_gen[15].CordicStage_i/XAdder/CarryBus<20>)
+     LUT4:I3->O            1   0.704   0.420  ResultComb<15>57 (ResultComb<15>57)
+     FDS:S                     0.911          R_15
+    ----------------------------------------
+    Total                    188.000ns (98.628ns logic, 89.372ns route)
+                                       (52.5% logic, 47.5% route)
+
+=========================================================================
+Timing constraint: Default OFFSET IN BEFORE for Clock 'CLK'
+  Total number of paths / destination ports: 56 / 56
+-------------------------------------------------------------------------
+Offset:              2.283ns (Levels of Logic = 1)
+  Source:            Func<3> (PAD)
+  Destination:       Func_temp_3 (FF)
+  Destination Clock: CLK rising
+
+  Data Path: Func<3> to Func_temp_3
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     IBUF:I->O             8   1.218   0.757  Func_3_IBUF (Func_3_IBUF)
+     FD:D                      0.308          Func_temp_3
+    ----------------------------------------
+    Total                      2.283ns (1.526ns logic, 0.757ns route)
+                                       (66.8% logic, 33.2% route)
+
+=========================================================================
+Timing constraint: Default OFFSET OUT AFTER for Clock 'CLK'
+  Total number of paths / destination ports: 16 / 16
+-------------------------------------------------------------------------
+Offset:              4.283ns (Levels of Logic = 1)
+  Source:            R_15 (FF)
+  Destination:       R<15> (PAD)
+  Source Clock:      CLK rising
+
+  Data Path: R_15 to R<15>
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDS:C->Q              1   0.591   0.420  R_15 (R_15)
+     OBUF:I->O                 3.272          R_15_OBUF (R<15>)
+    ----------------------------------------
+    Total                      4.283ns (3.863ns logic, 0.420ns route)
+                                       (90.2% logic, 9.8% route)
+
+=========================================================================
+
+
+Total REAL time to Xst completion: 245.00 secs
+Total CPU time to Xst completion: 242.15 secs
+ 
+--> 
+
+
+Total memory usage is 958792 kilobytes
+
+Number of errors   :    0 (   0 filtered)
+Number of warnings :   29 (   0 filtered)
+Number of infos    :   10 (   0 filtered)
+

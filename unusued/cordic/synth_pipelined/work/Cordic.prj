@@ -1,0 +1,6 @@
+vhdl work "../AdderSubtracter.vhd"
+vhdl work "../FixedLib.vhd"
+vhdl work "../AddSub.vhd"
+vhdl work "../CordicStage.vhd"
+vhdl work "../AnsiEscape.vhd"
+vhdl work "../Cordic.vhd"

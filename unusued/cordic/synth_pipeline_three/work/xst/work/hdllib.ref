@@ -1,0 +1,12 @@
+PH ansiescape NULL /home/chris/school/Winter_24_25/ee119b/hw3/synth_pipeline_three/AnsiEscape.vhd sub00/vhpl06 1740546322
+AR cordic sim /home/chris/school/Winter_24_25/ee119b/hw3/synth_pipeline_three/Cordic.vhd sub00/vhpl11 1740546327
+EN cordicstage NULL /home/chris/school/Winter_24_25/ee119b/hw3/synth_pipeline_three/CordicStage.vhd sub00/vhpl08 1740546324
+AR addsub concurrent /home/chris/school/Winter_24_25/ee119b/hw3/synth_pipeline_three/AddSub.vhd sub00/vhpl05 1740546321
+AR addersubtracter concurrent /home/chris/school/Winter_24_25/ee119b/hw3/synth_pipeline_three/AdderSubtracter.vhd sub00/vhpl01 1740546317
+AR cordicstage concurrent /home/chris/school/Winter_24_25/ee119b/hw3/synth_pipeline_three/CordicStage.vhd sub00/vhpl09 1740546325
+PH cordicconstants NULL /home/chris/school/Winter_24_25/ee119b/hw3/synth_pipeline_three/CordicStage.vhd sub00/vhpl07 1740546323
+PB fixedlib fixedlib /home/chris/school/Winter_24_25/ee119b/hw3/synth_pipeline_three/FixedLib.vhd sub00/vhpl03 1740546319
+EN cordic NULL /home/chris/school/Winter_24_25/ee119b/hw3/synth_pipeline_three/Cordic.vhd sub00/vhpl10 1740546326
+PH fixedlib NULL /home/chris/school/Winter_24_25/ee119b/hw3/synth_pipeline_three/FixedLib.vhd sub00/vhpl02 1740546318
+EN addsub NULL /home/chris/school/Winter_24_25/ee119b/hw3/synth_pipeline_three/AddSub.vhd sub00/vhpl04 1740546320
+EN addersubtracter NULL /home/chris/school/Winter_24_25/ee119b/hw3/synth_pipeline_three/AdderSubtracter.vhd sub00/vhpl00 1740546316

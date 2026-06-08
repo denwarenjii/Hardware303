@@ -1,0 +1,431 @@
+[INFO] [makePDF] Temp dir:
+  /tmp/tex2pdf.-b6612a53a87b99c7
+[INFO] [makePDF] Command line:
+  xelatex "-halt-on-error" "-interaction" "nonstopmode" "-output-directory" "/tmp/tex2pdf.-b6612a53a87b99c7" "/tmp/tex2pdf.-b6612a53a87b99c7/input.tex"
+[INFO] [makePDF] Relevant environment variables:
+  ("TEXINPUTS","/tmp/tex2pdf.-b6612a53a87b99c7:")
+  ("TEXMFOUTPUT","/tmp/tex2pdf.-b6612a53a87b99c7")
+  ("PWD","/home/chris/school/Winter_24_25/ee119b/hw3")
+  ("LANG","en_US.UTF-8")
+  ("SHELL","/bin/fish")
+  ("HOME","/home/chris")
+  ("PATH","/home/chris/.opam/default/bin:/home/chris/.local/bin:/home/chris/random_executables:/home/chris/.fzf/bin:/home/chris/.opam/default/bin:/home/chris/.local/bin:/home/chris/random_executables:/home/chris/.cargo/bin:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:/home/chris/.dotnet/tools:/var/lib/snapd/snap/bin")
+[INFO] [makePDF] Source:
+  % Options for packages loaded elsewhere
+  \PassOptionsToPackage{unicode}{hyperref}
+  \PassOptionsToPackage{hyphens}{url}
+  %
+  \documentclass[
+    8pt,
+  ]{article}
+  \usepackage{amsmath,amssymb}
+  \usepackage{setspace}
+  \usepackage{iftex}
+  \ifPDFTeX
+    \usepackage[T1]{fontenc}
+    \usepackage[utf8]{inputenc}
+    \usepackage{textcomp} % provide euro and other symbols
+  \else % if luatex or xetex
+    \usepackage{unicode-math} % this also loads fontspec
+    \defaultfontfeatures{Scale=MatchLowercase}
+    \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+  \fi
+  \usepackage{lmodern}
+  \ifPDFTeX\else
+    % xetex/luatex font selection
+    \setmainfont[]{DejaVu Serif}
+    \setmonofont[]{DejaVu Sans Mono}
+  \fi
+  % Use upquote if available, for straight quotes in verbatim environments
+  \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+  \IfFileExists{microtype.sty}{% use microtype if available
+    \usepackage[]{microtype}
+    \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+  }{}
+  \makeatletter
+  \@ifundefined{KOMAClassName}{% if non-KOMA class
+    \IfFileExists{parskip.sty}{%
+      \usepackage{parskip}
+    }{% else
+      \setlength{\parindent}{0pt}
+      \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+  }{% if KOMA class
+    \KOMAoptions{parskip=half}}
+  \makeatother
+  \usepackage{xcolor}
+  \usepackage[top=.5in,bottom=.5in,left=.3in,right=.3in]{geometry}
+  \usepackage{longtable,booktabs,array}
+  \usepackage{calc} % for calculating minipage widths
+  % Correct order of tables after \paragraph or \subparagraph
+  \usepackage{etoolbox}
+  \makeatletter
+  \patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+  \makeatother
+  % Allow footnotes in longtable head/foot
+  \IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+  \makesavenoteenv{longtable}
+  \setlength{\emergencystretch}{3em} % prevent overfull lines
+  \providecommand{\tightlist}{%
+    \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+  \setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+  \ifLuaTeX
+    \usepackage{selnolig}  % disable illegal ligatures
+  \fi
+  \usepackage{bookmark}
+  \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+  \urlstyle{same}
+  \hypersetup{
+    hidelinks,
+    pdfcreator={LaTeX via pandoc}}
+  
+  \author{}
+  \date{}
+  
+  \begin{document}
+  
+  \setstretch{1}
+  \section{System Functionality and Documentation (60
+  points)}\label{system-functionality-and-documentation-60-points}
+  
+  See attached zip file. The directory structure is as follows:
+  
+  \begin{verbatim}
+  
+  ├── sim
+  ├── sim_pipeline_three
+  ├── sim_pipelined
+  ├── synth
+  ├── synth_pipeline_three
+  └── synth_pipelined
+  \end{verbatim}
+  
+  Each sim directory has a Makefile that can be used to simulate the
+  design using \texttt{Make\ run}. Debug info can be increased by
+  uncommented the \texttt{SetLogEnable} calls in \texttt{Cordic.vhd} and
+  \texttt{Cordic\_TB.vhd} in each directory. The synth directories contain
+  mostly the same files as their corresponding sim directories, but with a
+  few modifications because Xilinx ISE 14.7 does not support the full
+  VHDL-2008 standard. The printout contains only the files from the
+  \texttt{synth\_pipeline\_three} directory. The rest of the directories
+  are also not as fully commented as this.
+  
+  \section{System Quality factor (25
+  points)}\label{system-quality-factor-25-points}
+  
+  \begin{itemize}
+  \tightlist
+  \item
+    Pipelined quality factor:
+    \(10\frac{f'_{\text{max}}}{f_{\text{max}}}-l^{2}\) where
+    \(f'_{\text{max}}\) is the max frequency of the pipelined system,
+    \(f_{\text{max}}\) is the max frequency of the original system, and
+    \(l^2\) is the latency in clocks.
+  \end{itemize}
+  
+  \subsection{Stats:}\label{stats}
+  
+  \begin{longtable}[]{@{}
+    >{\raggedright\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.1486}}
+    >{\raggedright\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.1419}}
+    >{\raggedright\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.1486}}
+    >{\raggedright\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.1486}}
+    >{\raggedright\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.0811}}
+    >{\raggedright\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.0743}}
+    >{\raggedright\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.1486}}
+    >{\raggedright\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.1081}}@{}}
+  \toprule\noalign{}
+  \begin{minipage}[b]{\linewidth}\raggedright
+  Pipelining Stages
+  \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+  Size (slices)
+  \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+  Slice Registers Used
+  \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+  Minimum Clock Speed
+  \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+  Frequency
+  \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+  Latency
+  \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+  Throughput
+  \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+  Quality Factor
+  \end{minipage} \\
+  \midrule\noalign{}
+  \endhead
+  \bottomrule\noalign{}
+  \endlastfoot
+  None & 3,917 / 8,672 (44\%) & 91 / 17,344 (1\%) & 172/175 nS & 5.808 MHz
+  & 1 clock & 5.808 million ops/s & N/A \\
+  1 & 2,531 / 8,672 (29\%) & 158 / 17,344 (1\%) & 89.022 nS & 11.233 MHz &
+  2 clocks & 11.233 million ops/s & 15.340 \\
+  3 & 2,173 / 8,672 (25\%) & 304 / 17,344 (1\%) & 45.681 nS & 21.890 & 4
+  clocks & 21.890 million ops/s & 21.689 \\
+  \end{longtable}
+  
+  \begin{itemize}
+  \tightlist
+  \item
+    All timing values are from post-PAR (place-and-route) reports.
+  \end{itemize}
+  
+  \section{System Size (15 points)}\label{system-size-15-points}
+  
+  Surprisingly, the pipelined designs used less slices than the
+  non-pipelined designs. I suspect that inserting DFFs in between stages
+  somehow allowed the compiler/synthesizer to reuse large amounts of
+  logic. This would make sense because a lot of the signals (such as the
+  internal signals) are generated only for a small part of the cordic
+  stages and then stored in DFFs. For example, in the three-stage
+  pipelined Cordic design, the muxxes associated with generating the
+  internal signals only need to generate the signals for 4 cordic stages
+  and then save them in DFFs for the next stage of the pipeline, rather
+  than make generate them for all 16 cordic stages. We do see an increase
+  in slice DFFs used, with each pipelining stage adding about 60 - 70
+  DFFs. This is expected because we need to latch 3 * 22 bits for the
+  outputs/inputs of each stage of pipelining we add, along with the select
+  lines/internal signals. For each stage of pipelining we add, we need to
+  latch:
+  
+  \begin{itemize}
+  \tightlist
+  \item
+    XInputBus(k) (22 bits)
+  \item
+    YInputBus(k) (22 bits)
+  \item
+    ZInputBus(k) (22 bits)
+  \item
+    Func (5 bits)
+  \item
+    CordSystem (2 bits)
+  \item
+    Mode (1 bit)
+  \end{itemize}
+  
+  This total to 74 DFFs per pipelining stage, but the actual increase is
+  less than that, likely due to compiler/routing optimizations and
+  trimming.
+  
+  \end{document}
+[INFO] [makePDF] LaTeX run number 1
+[INFO] [makePDF] LaTeX output
+  This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023) (preloaded format=xelatex)
+   restricted \write18 enabled.
+  entering extended mode
+  (/tmp/tex2pdf.-b6612a53a87b99c7/input.tex
+  LaTeX2e <2022-11-01> patch level 1
+  L3 programming layer <2023-02-22>
+  (/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
+  Document Class: article 2022/07/02 v1.4n Standard LaTeX document class
+  (/usr/share/texlive/texmf-dist/tex/latex/base/size10.clo))
+  (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
+  For additional information on amsmath, use the `?' option.
+  (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amstext.sty
+  (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty))
+  (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty)
+  (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty))
+  (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amssymb.sty
+  (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amsfonts.sty))
+  (/usr/share/texlive/texmf-dist/tex/latex/setspace/setspace.sty)
+  (/usr/share/texlive/texmf-dist/tex/generic/iftex/iftex.sty)
+  (/usr/share/texlive/texmf-dist/tex/latex/unicode-math/unicode-math.sty
+  (/usr/share/texlive/texmf-dist/tex/latex/l3kernel/expl3.sty
+  (/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-xetex.def))
+  (/usr/share/texlive/texmf-dist/tex/latex/unicode-math/unicode-math-xetex.sty
+  (/usr/share/texlive/texmf-dist/tex/latex/l3packages/xparse/xparse.sty)
+  (/usr/share/texlive/texmf-dist/tex/latex/l3packages/l3keys2e/l3keys2e.sty)
+  (/usr/share/texlive/texmf-dist/tex/latex/fontspec/fontspec.sty
+  (/usr/share/texlive/texmf-dist/tex/latex/fontspec/fontspec-xetex.sty
+  (/usr/share/texlive/texmf-dist/tex/latex/base/fontenc.sty)
+  (/usr/share/texlive/texmf-dist/tex/latex/fontspec/fontspec.cfg)))
+  (/usr/share/texlive/texmf-dist/tex/latex/base/fix-cm.sty
+  (/usr/share/texlive/texmf-dist/tex/latex/base/ts1enc.def))
+  (/usr/share/texlive/texmf-dist/tex/latex/unicode-math/unicode-math-table.tex)))
+  (/usr/share/texlive/texmf-dist/tex/latex/lm/lmodern.sty)
+  (/usr/share/texlive/texmf-dist/tex/latex/upquote/upquote.sty
+  (/usr/share/texlive/texmf-dist/tex/latex/base/textcomp.sty))
+  (/usr/share/texlive/texmf-dist/tex/latex/microtype/microtype.sty
+  (/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty)
+  (/usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty)
+  (/usr/share/texlive/texmf-dist/tex/latex/microtype/microtype-xetex.def)
+  (/usr/share/texlive/texmf-dist/tex/latex/microtype/microtype.cfg))
+  (/usr/share/texlive/texmf-dist/tex/latex/parskip/parskip.sty
+  (/usr/share/texlive/texmf-dist/tex/latex/kvoptions/kvoptions.sty
+  (/usr/share/texlive/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty)
+  (/usr/share/texlive/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty)))
+  (/usr/share/texlive/texmf-dist/tex/latex/xcolor/xcolor.sty
+  (/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/color.cfg)
+  (/usr/share/texlive/texmf-dist/tex/latex/graphics-def/xetex.def)
+  (/usr/share/texlive/texmf-dist/tex/latex/graphics/mathcolor.ltx))
+  (/usr/share/texlive/texmf-dist/tex/latex/geometry/geometry.sty
+  (/usr/share/texlive/texmf-dist/tex/generic/iftex/ifvtex.sty))
+  (/usr/share/texlive/texmf-dist/tex/latex/tools/longtable.sty)
+  (/usr/share/texlive/texmf-dist/tex/latex/booktabs/booktabs.sty)
+  (/usr/share/texlive/texmf-dist/tex/latex/tools/array.sty)
+  (/usr/share/texlive/texmf-dist/tex/latex/tools/calc.sty)
+  (/usr/share/texlive/texmf-dist/tex/latex/footnotehyper/footnotehyper.sty)
+  (/usr/share/texlive/texmf-dist/tex/latex/bookmark/bookmark.sty
+  (/usr/share/texlive/texmf-dist/tex/latex/hyperref/hyperref.sty
+  (/usr/share/texlive/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+  (/usr/share/texlive/texmf-dist/tex/generic/infwarerr/infwarerr.sty))
+  (/usr/share/texlive/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty)
+  (/usr/share/texlive/texmf-dist/tex/generic/pdfescape/pdfescape.sty)
+  (/usr/share/texlive/texmf-dist/tex/latex/hycolor/hycolor.sty)
+  (/usr/share/texlive/texmf-dist/tex/latex/letltxmacro/letltxmacro.sty)
+  (/usr/share/texlive/texmf-dist/tex/latex/auxhook/auxhook.sty)
+  (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
+  (/usr/share/texlive/texmf-dist/tex/latex/refcount/refcount.sty)
+  (/usr/share/texlive/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty))
+  (/usr/share/texlive/texmf-dist/tex/latex/hyperref/pd1enc.def)
+  (/usr/share/texlive/texmf-dist/tex/generic/intcalc/intcalc.sty)
+  (/usr/share/texlive/texmf-dist/tex/generic/etexcmds/etexcmds.sty)
+  (/usr/share/texlive/texmf-dist/tex/latex/hyperref/puenc.def)
+  (/usr/share/texlive/texmf-dist/tex/latex/url/url.sty)
+  (/usr/share/texlive/texmf-dist/tex/generic/bitset/bitset.sty
+  (/usr/share/texlive/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty))
+  (/usr/share/texlive/texmf-dist/tex/latex/base/atbegshi-ltx.sty))
+  (/usr/share/texlive/texmf-dist/tex/latex/hyperref/hxetex.def
+  (/usr/share/texlive/texmf-dist/tex/generic/stringenc/stringenc.sty)
+  (/usr/share/texlive/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+  (/usr/share/texlive/texmf-dist/tex/latex/base/atveryend-ltx.sty)
+  (/usr/share/texlive/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty)))
+  (/usr/share/texlive/texmf-dist/tex/latex/bookmark/bkm-dvipdfm.def))
+  (/usr/share/texlive/texmf-dist/tex/latex/xurl/xurl.sty)
+  
+  LaTeX Warning: Unused global option(s):
+      [8pt].
+  
+  No file input.aux.
+  *geometry* driver: auto-detecting
+  *geometry* detected driver: xetex
+  
+  Package hyperref Warning: Rerun to get /PageLabels entry.
+  
+  (/usr/share/texlive/texmf-dist/tex/latex/lm/omllmm.fd)
+  (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd)
+  (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msa.cfg)
+  (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd)
+  (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msb.cfg)
+  Overfull \hbox (14.31647pt too wide) in paragraph at lines 133--134
+  []\TU/DejaVuSerif(0)/m/n/10 Frequency  
+  
+  Overfull \hbox (3.77283pt too wide) in paragraph at lines 135--136
+  []\TU/DejaVuSerif(0)/m/n/10 Latency  
+  [1] (/tmp/tex2pdf.-b6612a53a87b99c7/input.aux)
+  
+  LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+  
+   )
+  (see the transcript file for additional information)
+  Output written on /tmp/tex2pdf.-b6612a53a87b99c7/input.pdf (1 page).
+  Transcript written on /tmp/tex2pdf.-b6612a53a87b99c7/input.log.
+[INFO] [makePDF] Rerun needed
+  Package hyperref Warning: Rerun to get /PageLabels entry.
+  LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+[INFO] [makePDF] LaTeX run number 2
+[INFO] [makePDF] LaTeX output
+  This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023) (preloaded format=xelatex)
+   restricted \write18 enabled.
+  entering extended mode
+  (/tmp/tex2pdf.-b6612a53a87b99c7/input.tex
+  LaTeX2e <2022-11-01> patch level 1
+  L3 programming layer <2023-02-22>
+  (/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
+  Document Class: article 2022/07/02 v1.4n Standard LaTeX document class
+  (/usr/share/texlive/texmf-dist/tex/latex/base/size10.clo))
+  (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
+  For additional information on amsmath, use the `?' option.
+  (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amstext.sty
+  (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty))
+  (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty)
+  (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty))
+  (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amssymb.sty
+  (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amsfonts.sty))
+  (/usr/share/texlive/texmf-dist/tex/latex/setspace/setspace.sty)
+  (/usr/share/texlive/texmf-dist/tex/generic/iftex/iftex.sty)
+  (/usr/share/texlive/texmf-dist/tex/latex/unicode-math/unicode-math.sty
+  (/usr/share/texlive/texmf-dist/tex/latex/l3kernel/expl3.sty
+  (/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-xetex.def))
+  (/usr/share/texlive/texmf-dist/tex/latex/unicode-math/unicode-math-xetex.sty
+  (/usr/share/texlive/texmf-dist/tex/latex/l3packages/xparse/xparse.sty)
+  (/usr/share/texlive/texmf-dist/tex/latex/l3packages/l3keys2e/l3keys2e.sty)
+  (/usr/share/texlive/texmf-dist/tex/latex/fontspec/fontspec.sty
+  (/usr/share/texlive/texmf-dist/tex/latex/fontspec/fontspec-xetex.sty
+  (/usr/share/texlive/texmf-dist/tex/latex/base/fontenc.sty)
+  (/usr/share/texlive/texmf-dist/tex/latex/fontspec/fontspec.cfg)))
+  (/usr/share/texlive/texmf-dist/tex/latex/base/fix-cm.sty
+  (/usr/share/texlive/texmf-dist/tex/latex/base/ts1enc.def))
+  (/usr/share/texlive/texmf-dist/tex/latex/unicode-math/unicode-math-table.tex)))
+  (/usr/share/texlive/texmf-dist/tex/latex/lm/lmodern.sty)
+  (/usr/share/texlive/texmf-dist/tex/latex/upquote/upquote.sty
+  (/usr/share/texlive/texmf-dist/tex/latex/base/textcomp.sty))
+  (/usr/share/texlive/texmf-dist/tex/latex/microtype/microtype.sty
+  (/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty)
+  (/usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty)
+  (/usr/share/texlive/texmf-dist/tex/latex/microtype/microtype-xetex.def)
+  (/usr/share/texlive/texmf-dist/tex/latex/microtype/microtype.cfg))
+  (/usr/share/texlive/texmf-dist/tex/latex/parskip/parskip.sty
+  (/usr/share/texlive/texmf-dist/tex/latex/kvoptions/kvoptions.sty
+  (/usr/share/texlive/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty)
+  (/usr/share/texlive/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty)))
+  (/usr/share/texlive/texmf-dist/tex/latex/xcolor/xcolor.sty
+  (/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/color.cfg)
+  (/usr/share/texlive/texmf-dist/tex/latex/graphics-def/xetex.def)
+  (/usr/share/texlive/texmf-dist/tex/latex/graphics/mathcolor.ltx))
+  (/usr/share/texlive/texmf-dist/tex/latex/geometry/geometry.sty
+  (/usr/share/texlive/texmf-dist/tex/generic/iftex/ifvtex.sty))
+  (/usr/share/texlive/texmf-dist/tex/latex/tools/longtable.sty)
+  (/usr/share/texlive/texmf-dist/tex/latex/booktabs/booktabs.sty)
+  (/usr/share/texlive/texmf-dist/tex/latex/tools/array.sty)
+  (/usr/share/texlive/texmf-dist/tex/latex/tools/calc.sty)
+  (/usr/share/texlive/texmf-dist/tex/latex/footnotehyper/footnotehyper.sty)
+  (/usr/share/texlive/texmf-dist/tex/latex/bookmark/bookmark.sty
+  (/usr/share/texlive/texmf-dist/tex/latex/hyperref/hyperref.sty
+  (/usr/share/texlive/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+  (/usr/share/texlive/texmf-dist/tex/generic/infwarerr/infwarerr.sty))
+  (/usr/share/texlive/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty)
+  (/usr/share/texlive/texmf-dist/tex/generic/pdfescape/pdfescape.sty)
+  (/usr/share/texlive/texmf-dist/tex/latex/hycolor/hycolor.sty)
+  (/usr/share/texlive/texmf-dist/tex/latex/letltxmacro/letltxmacro.sty)
+  (/usr/share/texlive/texmf-dist/tex/latex/auxhook/auxhook.sty)
+  (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
+  (/usr/share/texlive/texmf-dist/tex/latex/refcount/refcount.sty)
+  (/usr/share/texlive/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty))
+  (/usr/share/texlive/texmf-dist/tex/latex/hyperref/pd1enc.def)
+  (/usr/share/texlive/texmf-dist/tex/generic/intcalc/intcalc.sty)
+  (/usr/share/texlive/texmf-dist/tex/generic/etexcmds/etexcmds.sty)
+  (/usr/share/texlive/texmf-dist/tex/latex/hyperref/puenc.def)
+  (/usr/share/texlive/texmf-dist/tex/latex/url/url.sty)
+  (/usr/share/texlive/texmf-dist/tex/generic/bitset/bitset.sty
+  (/usr/share/texlive/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty))
+  (/usr/share/texlive/texmf-dist/tex/latex/base/atbegshi-ltx.sty))
+  (/usr/share/texlive/texmf-dist/tex/latex/hyperref/hxetex.def
+  (/usr/share/texlive/texmf-dist/tex/generic/stringenc/stringenc.sty)
+  (/usr/share/texlive/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+  (/usr/share/texlive/texmf-dist/tex/latex/base/atveryend-ltx.sty)
+  (/usr/share/texlive/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty)))
+  (/usr/share/texlive/texmf-dist/tex/latex/bookmark/bkm-dvipdfm.def))
+  (/usr/share/texlive/texmf-dist/tex/latex/xurl/xurl.sty)
+  
+  LaTeX Warning: Unused global option(s):
+      [8pt].
+  
+  (/tmp/tex2pdf.-b6612a53a87b99c7/input.aux)
+  *geometry* driver: auto-detecting
+  *geometry* detected driver: xetex
+  (/usr/share/texlive/texmf-dist/tex/latex/lm/omllmm.fd)
+  (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd)
+  (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msa.cfg)
+  (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd)
+  (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msb.cfg)
+  Overfull \hbox (14.31647pt too wide) in paragraph at lines 133--134
+  []\TU/DejaVuSerif(0)/m/n/10 Frequency  
+  
+  Overfull \hbox (3.77283pt too wide) in paragraph at lines 135--136
+  []\TU/DejaVuSerif(0)/m/n/10 Latency  
+  [1] (/tmp/tex2pdf.-b6612a53a87b99c7/input.aux) )
+  (see the transcript file for additional information)
+  Output written on /tmp/tex2pdf.-b6612a53a87b99c7/input.pdf (1 page).
+  Transcript written on /tmp/tex2pdf.-b6612a53a87b99c7/input.log.
+[WARNING] [makePDF] LaTeX Warning: Unused global option(s): [8pt].

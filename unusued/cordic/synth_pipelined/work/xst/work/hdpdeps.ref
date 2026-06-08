@@ -1,0 +1,51 @@
+V3 25
+FL /home/chris/school/Winter_24_25/ee119b/hw3/synth_pipelined/AdderSubtracter.vhd 2025/02/23.16:10:50 P.20131013
+EN work/AdderSubtracter 1740535996 \
+      FL /home/chris/school/Winter_24_25/ee119b/hw3/synth_pipelined/AdderSubtracter.vhd \
+      PB ieee/std_logic_1164 1381692176 PB ieee/NUMERIC_STD 1381692181
+AR work/AdderSubtracter/concurrent 1740535997 \
+      FL /home/chris/school/Winter_24_25/ee119b/hw3/synth_pipelined/AdderSubtracter.vhd \
+      EN work/AdderSubtracter 1740535996
+FL /home/chris/school/Winter_24_25/ee119b/hw3/synth_pipelined/AddSub.vhd 2025/02/23.16:10:50 P.20131013
+EN work/AddSub 1740536000 \
+      FL /home/chris/school/Winter_24_25/ee119b/hw3/synth_pipelined/AddSub.vhd \
+      PB ieee/std_logic_1164 1381692176 PB ieee/NUMERIC_STD 1381692181 \
+      PB std/TEXTIO 1381692176 PB ieee/MATH_REAL 1381692182 \
+      PB ieee/std_logic_arith 1381692177
+AR work/AddSub/concurrent 1740536001 \
+      FL /home/chris/school/Winter_24_25/ee119b/hw3/synth_pipelined/AddSub.vhd \
+      EN work/AddSub 1740536000 CP AdderSubtracter
+FL /home/chris/school/Winter_24_25/ee119b/hw3/synth_pipelined/AnsiEscape.vhd 2025/02/23.16:10:50 P.20131013
+PH work/ANSIEscape 1740536002 \
+      FL /home/chris/school/Winter_24_25/ee119b/hw3/synth_pipelined/AnsiEscape.vhd \
+      LB std
+FL /home/chris/school/Winter_24_25/ee119b/hw3/synth_pipelined/Cordic.vhd 2025/02/25.18:13:08 P.20131013
+EN work/Cordic 1740536006 \
+      FL /home/chris/school/Winter_24_25/ee119b/hw3/synth_pipelined/Cordic.vhd \
+      PB std/TEXTIO 1381692176 PB ieee/std_logic_1164 1381692176 \
+      PB ieee/NUMERIC_STD 1381692181 PB ieee/MATH_REAL 1381692182 PB work/FixedLib 1740535999 \
+      PH work/CordicConstants 1740536003 LB work PH work/ANSIEscape 1740536002
+AR work/Cordic/synth 1740536007 \
+      FL /home/chris/school/Winter_24_25/ee119b/hw3/synth_pipelined/Cordic.vhd \
+      EN work/Cordic 1740536006 CP CordicStage
+FL /home/chris/school/Winter_24_25/ee119b/hw3/synth_pipelined/CordicStage.vhd 2025/02/25.18:04:21 P.20131013
+PH work/CordicConstants 1740536003 \
+      FL /home/chris/school/Winter_24_25/ee119b/hw3/synth_pipelined/CordicStage.vhd \
+      PB std/TEXTIO 1381692176 PB ieee/std_logic_1164 1381692176 \
+      PB ieee/NUMERIC_STD 1381692181 PB ieee/MATH_REAL 1381692182 PB work/FixedLib 1740535999
+EN work/CordicStage 1740536004 \
+      FL /home/chris/school/Winter_24_25/ee119b/hw3/synth_pipelined/CordicStage.vhd \
+      PB std/TEXTIO 1381692176 PB ieee/std_logic_1164 1381692176 \
+      PB ieee/NUMERIC_STD 1381692181 PB ieee/MATH_REAL 1381692182 PB work/FixedLib 1740535999 \
+      PH work/CordicConstants 1740536003 LB work
+AR work/CordicStage/concurrent 1740536005 \
+      FL /home/chris/school/Winter_24_25/ee119b/hw3/synth_pipelined/CordicStage.vhd \
+      EN work/CordicStage 1740536004 CP AddSub
+FL /home/chris/school/Winter_24_25/ee119b/hw3/synth_pipelined/FixedLib.vhd 2025/02/23.16:10:50 P.20131013
+PH work/FixedLib 1740535998 \
+      FL /home/chris/school/Winter_24_25/ee119b/hw3/synth_pipelined/FixedLib.vhd \
+      PB std/TEXTIO 1381692176 PB ieee/std_logic_1164 1381692176 \
+      PB ieee/NUMERIC_STD 1381692181 PB ieee/MATH_REAL 1381692182
+PB work/FixedLib 1740535999 \
+      FL /home/chris/school/Winter_24_25/ee119b/hw3/synth_pipelined/FixedLib.vhd \
+      PH work/FixedLib 1740535998

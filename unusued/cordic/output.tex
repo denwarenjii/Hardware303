@@ -1,0 +1,197 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  10pt,
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{setspace}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+  \setmainfont[]{DejaVu Serif}
+  \setmonofont[]{DejaVu Sans Mono}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[top=.5in,bottom=.5in,left=.2in,right=.2in]{geometry}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\author{}
+\date{}
+
+\begin{document}
+
+\setstretch{1}
+\section{System Functionality and Documentation (60
+points)}\label{system-functionality-and-documentation-60-points}
+
+See attached zip file. The directory structure is as follows:
+
+\begin{verbatim}
+
+├── sim
+├── sim_pipeline_three
+├── sim_pipelined
+├── synth
+├── synth_pipeline_three
+└── synth_pipelined
+\end{verbatim}
+
+Each sim directory has a Makefile that can be used to simulate the
+design using \texttt{Make\ run}. Debug info can be increased by
+uncommented the \texttt{SetLogEnable} calls in \texttt{Cordic.vhd} and
+\texttt{Cordic\_TB.vhd} in each directory. The synth directories contain
+mostly the same files as their corresponding sim directories, but with a
+few modifications because Xilinx ISE 14.7 does not support the full
+VHDL-2008 standard. The printout contains only the files from the
+\texttt{synth\_pipeline\_three} directory. The rest of the directories
+are also not as fully commented as this.
+
+\section{System Quality factor (25
+points)}\label{system-quality-factor-25-points}
+
+\begin{itemize}
+\tightlist
+\item
+  Pipelined quality factor:
+  \(10\frac{f'_{\text{max}}}{f_{\text{max}}}-l^{2}\) where
+  \(f'_{\text{max}}\) is the max frequency of the pipelined system,
+  \(f_{\text{max}}\) is the max frequency of the original system, and
+  \(l^2\) is the latency in clocks.
+\end{itemize}
+
+\subsection{Stats:}\label{stats}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.1486}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.1419}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.1486}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.1486}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.0811}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.0743}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.1486}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.1081}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Pipelining Stages
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Size (slices)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Slice Registers Used
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Minimum Clock Speed
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Frequency
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Latency
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Throughput
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Quality Factor
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+None & 3,917 / 8,672 (44\%) & 91 / 17,344 (1\%) & 172/175 nS & 5.808 MHz
+& 1 clock & 5.808 million ops/s & N/A \\
+1 & 2,531 / 8,672 (29\%) & 158 / 17,344 (1\%) & 89.022 nS & 11.233 MHz &
+2 clocks & 11.233 million ops/s & 15.340 \\
+3 & 2,173 / 8,672 (25\%) & 304 / 17,344 (1\%) & 45.681 nS & 21.890 & 4
+clocks & 21.890 million ops/s & 21.689 \\
+\end{longtable}
+
+\begin{itemize}
+\tightlist
+\item
+  All timing values are from post-PAR (place-and-route) reports.
+\end{itemize}
+
+\section{System Size (15 points)}\label{system-size-15-points}
+
+Surprisingly, the pipelined designs used less slices than the
+non-pipelined designs. I suspect that inserting DFFs in between stages
+somehow allowed the compiler/synthesizer to reuse large amounts of
+logic. This would make sense because a lot of the signals (such as the
+internal signals) are generated only for a small part of the cordic
+stages and then stored in DFFs. For example, in the three-stage
+pipelined Cordic design, the muxxes associated with generating the
+internal signals only need to generate the signals for 4 cordic stages
+and then save them in DFFs for the next stage of the pipeline, rather
+than make generate them for all 16 cordic stages. We do see an increase
+in slice DFFs used, with each pipelining stage adding about 60 - 70
+DFFs. This is expected because we need to latch 3 * 22 bits for the
+outputs/inputs of each stage of pipelining we add, along with the select
+lines/internal signals. For each stage of pipelining we add, we need to
+latch:
+
+\begin{itemize}
+\tightlist
+\item
+  XInputBus(k) (22 bits)
+\item
+  YInputBus(k) (22 bits)
+\item
+  ZInputBus(k) (22 bits)
+\item
+  Func (5 bits)
+\item
+  CordSystem (2 bits)
+\item
+  Mode (1 bit)
+\end{itemize}
+
+This total to 74 DFFs per pipelining stage, but the actual increase is
+less than that, likely due to compiler/routing optimizations and
+trimming.
+
+\end{document}

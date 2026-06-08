@@ -1,0 +1,2 @@
+[Make]  ghdl -a --std=08 -Wuseless -Wunused -fsynopsys --workdir=work -P/home/chris/vhdl Cordic.vhd
+[Make]  ghdl -a --std=08 -Wuseless -Wunused -fsynopsys --workdir=work -P/home/chris/vhdl Cordic_TB.vhd
