@@ -15,13 +15,11 @@ GHDLRUNFLAGS = --ieee-asserts=disable --stop-time=10ns
 
 # --vcd=work/wblock_tb.vcd
 
-SRCS := WBlock.vhd	\
-	WBlock_TB.vhd
-
 all: | work
-	$(MAKE) wblock_tb
+	$(MAKE) filter_tb
 
-wblock: | work
+# TODO: Depends on all other sources as well
+moogfilter: | work MoogFilter.vhd
 	$(GHDL) -a $(GHDLFLAGS) AnsiEscape.vhd
 	$(GHDL) -a $(GHDLFLAGS) FixedLib.vhd
 	$(GHDL) -a $(GHDLFLAGS) AdderSubtracter.vhd
@@ -30,30 +28,51 @@ wblock: | work
 	$(GHDL) -a $(GHDLFLAGS) CordicStage.vhd
 	$(GHDL) -a $(GHDLFLAGS) Cordic.vhd
 	$(GHDL) -a $(GHDLFLAGS) WBlock.vhd
+	$(GHDL) -a $(GHDLFLAGS) MoogFilter.vhd
 
-wblock_tb : wblock | work $(SRCS)
-	$(GHDL) -a $(GHDLFLAGS) WBlock_TB.vhd
-	$(GHDL) -e $(GHDLFLAGS) wblock_tb
+moogfilter_tb: MoogFilter_TB.vhd | work 
+	$(GHDL) -a $(GHDLFLAGS) MoogFilter_TB.vhd
+	$(GHDL) -e $(GHDLFLAGS) moogfilterstage
 
-moogfilterstage: wblock | work 
-	$(GHDL) -a $(GHDLFLAGS) MoogFilterStage.vhd
+# SRCS := WBlock.vhd	\
+# 	WBlock_TB.vhd
 
-moogfilterstage_tb : | work
-	$(GHDL) -a $(GHDLFLAGS) MoogFilterStage_TB.vhd
-	$(GHDL) -e $(GHDLFLAGS) moogfilterstage_tb
+# all: | work
+# 	$(MAKE) wblock_tb
 
-clean:
-	$(GHDL) --clean --std=08 --workdir=work/
-	rm -rfd work/*
+# wblock: | work
+# 	$(GHDL) -a $(GHDLFLAGS) AnsiEscape.vhd
+# 	$(GHDL) -a $(GHDLFLAGS) FixedLib.vhd
+# 	$(GHDL) -a $(GHDLFLAGS) AdderSubtracter.vhd
+# 	$(GHDL) -a $(GHDLFLAGS) AddSub.vhd
+# 	$(GHDL) -a $(GHDLFLAGS) FixedLib.vhd
+# 	$(GHDL) -a $(GHDLFLAGS) CordicStage.vhd
+# 	$(GHDL) -a $(GHDLFLAGS) Cordic.vhd
+# 	$(GHDL) -a $(GHDLFLAGS) WBlock.vhd
 
-run_wblock_tb: wblock_tb
-	$(GHDL) -r $< $(GHDLRUNFLAGS) --vcd=work/$<.vcd
+# wblock_tb : wblock | work $(SRCS)
+# 	$(GHDL) -a $(GHDLFLAGS) WBlock_TB.vhd
+# 	$(GHDL) -e $(GHDLFLAGS) wblock_tb
 
-run_moogfilterstage_tb: moogfilterstage_tb
-	$(GHDL) -r $< $(GHDLRUNFLAGS) --vcd=work/$<.vcd
+# moogfilterstage: wblock | work 
+# 	$(GHDL) -a $(GHDLFLAGS) MoogFilterStage.vhd
 
-work:
-	mkdir -p work
+# moogfilterstage_tb : | work
+# 	$(GHDL) -a $(GHDLFLAGS) MoogFilterStage_TB.vhd
+# 	$(GHDL) -e $(GHDLFLAGS) moogfilterstage_tb
 
-.PHONY: clean wblock moogfilterstage
+# clean:
+# 	$(GHDL) --clean --std=08 --workdir=work/
+# 	rm -rfd work/*
+
+# run_wblock_tb: wblock_tb
+# 	$(GHDL) -r $< $(GHDLRUNFLAGS) --vcd=work/$<.vcd
+
+# run_moogfilterstage_tb: moogfilterstage_tb
+# 	$(GHDL) -r $< $(GHDLRUNFLAGS) --vcd=work/$<.vcd
+
+# work:
+# 	mkdir -p work
+
+# .PHONY: clean wblock moogfilterstage
 
