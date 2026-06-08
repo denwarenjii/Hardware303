@@ -33,7 +33,10 @@ moogfilter: | work MoogFilter.vhd
 
 moogfilter_tb: MoogFilter_TB.vhd | work 
 	$(GHDL) -a $(GHDLFLAGS) MoogFilter_TB.vhd
-	$(GHDL) -e $(GHDLFLAGS) moogfilterstage
+	$(GHDL) -e $(GHDLFLAGS) moogfilter_tb
+
+run_moogfilter_tb: moogfilter_tb | work
+	$(GHDL) -r $< $(GHDLRUNFLAGS) --vcd=work/$<.vcd
 
 # SRCS := WBlock.vhd	\
 # 	WBlock_TB.vhd

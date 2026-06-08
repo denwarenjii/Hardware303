@@ -25,13 +25,13 @@ use ANSIEscape.all;               -- ANSI Escape sequences for printing color.
 entity MoogFilter_TB is
 end MoogFilter_TB;
 
-architecture sim of WBlock_TB is
+architecture sim of MoogFilter_TB is
     constant WORD_SIZE : integer := 16;
     constant CLK_PERIOD : time  := (1 sec / (1e9));
     signal ClkEn : std_logic := '1'; -- Clock enable; active high
-    signal Reset_TB : std_logic_vector(WORD_SIZE - 1 downto 0);
+    signal Reset_TB : std_logic;
     signal YIn_TB : std_logic_vector(WORD_SIZE - 1 downto 0);
-    signal CLK_TB : std_logic_vector(WORD_SIZE - 1 downto 0);
+    signal CLK_TB : std_logic;
     signal YOut_TB : std_logic_vector(WORD_SIZE - 1 downto 0);
 
 begin
@@ -46,7 +46,7 @@ begin
             YIn   => YIn_TB,
             CLK   => CLK_TB,
             YOut  => YOut_TB
-        )
+        );
 
 
     GenClk : process
