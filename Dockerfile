@@ -184,9 +184,16 @@ WORKDIR /Hardware303/cordic
 COPY cordic .
 RUN make run
 
+WORKDIR /Hardware303/wblock
+COPY wblock .
+RUN make run
+
 FROM scratch AS export
 COPY --from=project /Hardware303/nco/**.vcd ./nco/
 COPY --from=project /Hardware303/nco/**.txt ./nco/
 
 COPY --from=project /Hardware303/cordic/**.vcd ./cordic/
 COPY --from=project /Hardware303/cordic/**.txt ./cordic/
+
+COPY --from=project /Hardware303/wblock/**.vcd ./wblock/
+COPY --from=project /Hardware303/wblock/**.txt ./wblock/
