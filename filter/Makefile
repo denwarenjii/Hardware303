@@ -28,6 +28,7 @@ moogfilter: | work MoogFilter.vhd
 	$(GHDL) -a $(GHDLFLAGS) CordicStage.vhd
 	$(GHDL) -a $(GHDLFLAGS) Cordic.vhd
 	$(GHDL) -a $(GHDLFLAGS) WBlock.vhd
+	$(GHDL) -a $(GHDLFLAGS) MoogFilterStage.vhd
 	$(GHDL) -a $(GHDLFLAGS) MoogFilter.vhd
 
 moogfilter_tb: MoogFilter_TB.vhd | work 

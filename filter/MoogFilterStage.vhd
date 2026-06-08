@@ -60,6 +60,7 @@ entity MoogFilterStage is
     Reset     : in  std_logic; -- active low
     a_n       : in  std_logic_vector(wordsize - 1 downto 0);
     CLK       : in  std_logic;
+    Yn_out    : out std_logic_vector(wordsize - 1 downto 0);
     stage_out : out std_logic_vector(wordsize - 1 downto 0)
   );
 end MoogFilterStage;
@@ -164,13 +165,14 @@ begin
    -- Assign the delayed values
    process(CLK)
    begin
-    if rising_edge(clk) then
-      Yn       <= Yn_comb;
-      Wn_min_1 <= Wn;
-      Yn_min_1 <= Yn;
+    if rising_edge(CLK) then
+      Yn        <= Yn_comb;
+      Wn_min_1  <= Wn;
+      Yn_min_1  <= Yn;
       stage_out <= Wn;
     end if;
   end process;
 
+  Yn_out <= Yn;
 
 end structural;

@@ -47,14 +47,15 @@ architecture structural of MoogFilter is
   constant R_slv : std_logic_vector(wordsize - 1 downto 0) := 
     std_logic_vector(to_unsigned(R, wordsize));
 
+  signal Yd : std_logic_vector(wordsize - 1 downto 0);
   -- Time delayed inputs/outputs
-  signal Ya_n_min_1 : std_logic_vector(wordsize - 1 downto 0) := (others => '0');
-  signal Yb_n_min_1 : std_logic_vector(wordsize - 1 downto 0) := (others => '0');
-  signal Yc_n_min_1 : std_logic_vector(wordsize - 1 downto 0) := (others => '0');
+  -- signal Ya_n_min_1 : std_logic_vector(wordsize - 1 downto 0) := (others => '0');
+  -- signal Yb_n_min_1 : std_logic_vector(wordsize - 1 downto 0) := (others => '0');
+  -- signal Yc_n_min_1 : std_logic_vector(wordsize - 1 downto 0) := (others => '0');
   signal Yd_n_min_1 : std_logic_vector(wordsize - 1 downto 0) := (others => '0');
-  signal Wa_n_min_1 : std_logic_vector(wordsize - 1 downto 0) := (others => '0');
-  signal Wb_n_min_1 : std_logic_vector(wordsize - 1 downto 0) := (others => '0');
-  signal Wc_n_min_1 : std_logic_vector(wordsize - 1 downto 0) := (others => '0');
+  -- signal Wa_n_min_1 : std_logic_vector(wordsize - 1 downto 0) := (others => '0');
+  -- signal Wb_n_min_1 : std_logic_vector(wordsize - 1 downto 0) := (others => '0');
+  -- signal Wc_n_min_1 : std_logic_vector(wordsize - 1 downto 0) := (others => '0');
 
   -- Stage 1 pre
   signal Stage1_Pre_Xin : std_logic_vector(wordsize - 1 downto 0);
@@ -81,6 +82,12 @@ architecture structural of MoogFilter is
   -- signal Stage2_Div_BIn    :
   -- STAGE 3 ------------------------------------------------------------------
 
+  signal Stage2_In : std_logic_vector(wordsize - 1 downto 0);
+  signal Stage2_Out : std_logic_vector(wordsize - 1 downto 0);
+  signal Stage3_In : std_logic_vector(wordsize - 1 downto 0);
+  signal Stage3_Out : std_logic_vector(wordsize - 1 downto 0);
+  signal Stage4_In : std_logic_vector(wordsize - 1 downto 0);
+  signal Stage4_Out : std_logic_vector(wordsize - 1 downto 0);
 begin
 
   Stage1_Pre_Xin <= R_slv sll 2;
@@ -108,12 +115,51 @@ begin
       WOut   => Stage1_Out
     );
 
-  -- Stage1 : entity MoogFilterStage
-  --   port map (
-  --     Reset => Reset,
-  --     a_n   => 
-  --     CLK   => CLK,
-  --     stage_out => Stage1_Out
-  --   )
+  -- Chain them
+  Stage2 : entity MoogFilterStage
+    port map (
+      Reset       => Reset,
+      a_n         => Stage1_Out,
+      CLK         => CLK,
+      Yn_out      => open,
+      stage_out   => Stage2_Out
+    );
+
+  Stage3 : entity MoogFilterStage
+    port map (
+      Reset       => Reset,
+      a_n         => Stage2_Out,
+      CLK         => CLK,
+      Yn_out      => open,
+      stage_out   => Stage3_Out
+    );
+
+  Stage4 : entity MoogFilterStage
+    port map (
+      Reset       => Reset,
+      a_n         => Stage3_Out,
+      CLK         => CLK,
+      Yn_out      => open,
+      stage_out   => Stage4_Out
+    );
+
+  -- NOTE: The final "stage" is basically the same as the same as a normal
+  -- stage, except we don't care about it's output (which is W_d[n]), but
+  -- about y[d], which is calculated inside of the stage
+  Stage5 : entity MoogFilterStage
+    port map (
+      Reset => Reset,
+      a_n => Stage4_Out,
+      CLK => CLK,
+      Yn_out => Yd,
+      stage_out => open
+    );
+
+   process(CLK)
+   begin
+    if rising_edge(CLK) then
+      Yd_n_min_1 <= Yd;
+    end if;
+  end process;
 
 end structural;
