@@ -42,7 +42,7 @@ architecture sim of MoogFilterStage_TB is
     constant CLK_PERIOD : time  := (1 sec / (1e9));
     signal ClkEn        : std_logic := '1'; -- Clock enable; active high
     signal CLK_TB       : std_logic := '1';
-    signal stage_out_tb : std_logic_vector(wordsize - 1 downto 0);
+    signal stage_out_tb : std_logic_vector(WORD_SIZE - 1 downto 0);
 begin
 
     UUT : entity MoogFilterStage

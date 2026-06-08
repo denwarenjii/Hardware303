@@ -168,6 +168,7 @@ begin
       Yn       <= Yn_comb;
       Wn_min_1 <= Wn;
       Yn_min_1 <= Yn;
+      stage_out <= Wn;
     end if;
   end process;
 
