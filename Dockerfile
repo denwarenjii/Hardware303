@@ -158,6 +158,10 @@ FROM ghdl/ghdl:7.0.0-dev-gcc-ubuntu-24.04 AS osvvm
 RUN apt-get update && apt-get install -y \
     git \
     make \
+    pandoc \
+    python3 \
+    python3-matplotlib \
+    python3-numpy \
     ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
@@ -175,3 +179,7 @@ FROM osvvm AS project
 WORKDIR /Hardware303
 COPY nco .
 RUN make
+
+FROM scratch AS export
+COPY --from=project /Hardware303/work/*.vcd ./
+COPY --from=project /Hardware303/work/*.txt ./
