@@ -80,7 +80,46 @@ The harmonics of both will decay at a rate of 6dB / octave.
 A resonant low-pass filter is simply a low-pass filter that produces 
 The filter is based on the Huovilainen's paper titled "NON-LINEAR DIGITAL
 IMPLEMENTATION OF THE MOOG LADDER FILTER" [1], in which the author aproximates
-the non-linearities
+the non-linearities of a Moog ladder filter, resulting in the following
+input-output equations:
 
+
+$$
+\begin{aligned}
+y_a(n) &= y_a(n-1) + \frac{I_{ctl}}{CF_s}\left(\tanh\left(\frac{x(n) - 4ry_d(n-1)}{2V_t}\right) - W_a(n-1)\right) \\[10pt]
+y_b(n) &= y_b(n-1) + \frac{I_{ctl}}{CF_s}\left(W_a(n) - W_b(n-1)\right) \\[10pt]
+y_c(n) &= y_c(n-1) + \frac{I_{ctl}}{CF_s}\left(W_b(n) - W_c(n-1)\right) \\[10pt]
+y_d(n) &= y_d(n-1) + \frac{I_{ctl}}{CF_s}\left(W_c(n) - \tanh\left(\frac{y_d(n-1)}{2V_t}\right)\right) \\[10pt]
+W_{\{a,b,c\}}(n) &= \tanh\left(\frac{y_{\{a,b,c\}}(n)}{2V_t}\right)
+\end{aligned}
+$$
+
+
+where $x[n]$ is the output of NCO, and $y_d$ is the output of the filter. We naturally
+see that this design lends itself to a multistage design, in which we can generically
+define a filter stage, as well as a generic "W block" that computes  $W_{\{a,b,c\}}(n)$.
+
+The W block can be represented as follows:
+
+![W block diagram](w_block.jpg)
+
+Pratically, we implement division and mulitplication with the CORDIC as well.
+Aditionally, since the CORDIC can only calculate sinh, and cosh, we need a final
+division step to calculate tanh. This can be done with the following arrangement
+of CORDICs:
+
+
+![W block digital diagram](w_block_digital.jpg)
+
+
+It is important to note that the finished design uses Q1.14 signed fixed point
+numbers (or Q2.14 depending on the naming) convention. This means that we have
+two bits for a signed integer part, and 14 bits for the fractional part. This
+was done because the CORDIC was rigorously tested in this configuration, but
+this severely limits range of intermediate values we can represent. Ideally,
+we would be able to represent the voltage range of original TB-303, which is
+most on the order of 10s of voltages.
+
+## Results
 
 [1] https://dafx.de/paper-archive/2004/P_061.PDF
