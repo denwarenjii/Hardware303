@@ -162,16 +162,25 @@ begin
 
   Yn_comb <= Adder1_S;
 
+  
    -- Assign the delayed values
    process(CLK)
    begin
     if rising_edge(CLK) then
-      Yn        <= Yn_comb;
-      Wn_min_1  <= Wn;
-      Yn_min_1  <= Yn;
-      stage_out <= Wn;
+      if (Reset = '0') then
+        Yn        <= (others => '0');
+        Wn_min_1  <= (others => '0');
+        Yn_min_1  <= (others => '0');
+        stage_out <= (others => '0');
+      else
+        Yn        <= Yn_comb;
+        Wn_min_1  <= Wn;
+        Yn_min_1  <= Yn;
+        stage_out <= Wn;
+      end if;
     end if;
   end process;
+
 
   Yn_out <= Yn;
 

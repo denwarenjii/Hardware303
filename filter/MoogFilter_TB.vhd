@@ -49,22 +49,23 @@ begin
         );
 
 
-    -- Stimulus : process
-    -- begin
-    --     Reset_TB <= '0';
-    --     wait for 10 * CLK_PERIOD;
+    Stimulus : process
+    begin
+        Reset_TB <= '0';
+        wait for 2 * CLK_PERIOD;
 
-    --     Reset_TB <= '0';
-    --     wait for 100 * CLK_PERIOD;
+        Reset_TB <= '1';
+        YIn_TB <= RealToQ1_14(0.5);
+        wait for 100 * CLK_PERIOD;
 
-    --     YIn_TB <= RealToQ1_14(0.5);
-    --     wait for 200 * CLK_PERIOD;
+        -- YIn_TB <= RealToQ1_14(0.5);
+        -- wait for 200 * CLK_PERIOD;
 
-    --     YIn_TB <= RealToQ1_14(1.0);
-    --     wait for 100 * CLK_PERIOD;
+        -- YIn_TB <= RealToQ1_14(1.0);
+        -- wait for 100 * CLK_PERIOD;
 
-    --     stop;
-    -- end process Stimulus;
+        stop;
+    end process Stimulus;
 
     GenClk : process
     begin

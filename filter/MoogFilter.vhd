@@ -47,7 +47,7 @@ architecture structural of MoogFilter is
   constant R_slv : std_logic_vector(wordsize - 1 downto 0) := 
     std_logic_vector(to_unsigned(R, wordsize));
 
-  signal Yd : std_logic_vector(wordsize - 1 downto 0);
+  signal Yd : std_logic_vector(wordsize - 1 downto 0) := (others => '0');
   -- Time delayed inputs/outputs
   -- signal Ya_n_min_1 : std_logic_vector(wordsize - 1 downto 0) := (others => '0');
   -- signal Yb_n_min_1 : std_logic_vector(wordsize - 1 downto 0) := (others => '0');
@@ -58,22 +58,22 @@ architecture structural of MoogFilter is
   -- signal Wc_n_min_1 : std_logic_vector(wordsize - 1 downto 0) := (others => '0');
 
   -- Stage 1 pre
-  signal Stage1_Pre_Xin : std_logic_vector(wordsize - 1 downto 0);
-  signal Stage1_Pre_Yin : std_logic_vector(wordsize - 1 downto 0);
-  signal Stage1_Pre_Out : std_logic_vector(wordsize - 1 downto 0);
+  signal Stage1_Pre_Xin : std_logic_vector(wordsize - 1 downto 0) := (others => '0');
+  signal Stage1_Pre_Yin : std_logic_vector(wordsize - 1 downto 0) := (others => '0');
+  signal Stage1_Pre_Out : std_logic_vector(wordsize - 1 downto 0) := (others => '0');
 
   -- STAGE 1 ------------------------------------------------------------------
 
   -- x[n] ; our input
-  signal Stage1_Adder_AIn : std_logic_vector(wordsize - 1 downto 0);
+  signal Stage1_Adder_AIn : std_logic_vector(wordsize - 1 downto 0) := (others => '0');
   -- 4*r*y_d[n-1]
-  signal Stage1_Adder_BIn : std_logic_vector(wordsize - 1 downto 0);
+  signal Stage1_Adder_BIn : std_logic_vector(wordsize - 1 downto 0) := (others => '0');
   -- x[n] - 4*r*y_d[n-1]
-  signal Stage1_Adder_Out : std_logic_vector(wordsize - 1 downto 0);
+  signal Stage1_Adder_Out : std_logic_vector(wordsize - 1 downto 0) := (others => '0');
   -- 4*r*y_d[n-1]
-  signal Four_R_Yd_Nmin1 : std_logic_vector(wordsize - 1 downto 0);
-  signal Stage1_In       : std_logic_vector(wordsize - 1 downto 0);
-  signal Stage1_Out      : std_logic_vector(wordsize - 1 downto 0);
+  signal Four_R_Yd_Nmin1 : std_logic_vector(wordsize - 1 downto 0) := (others => '0');
+  -- signal Stage1_In       : std_logic_vector(wordsize - 1 downto 0);
+  signal Stage1_Out      : std_logic_vector(wordsize - 1 downto 0) := (others => '0');
 
   -- STAGE 2 ------------------------------------------------------------------
   -- signal Stage2_Adder1_AIn :
@@ -82,12 +82,12 @@ architecture structural of MoogFilter is
   -- signal Stage2_Div_BIn    :
   -- STAGE 3 ------------------------------------------------------------------
 
-  signal Stage2_In : std_logic_vector(wordsize - 1 downto 0);
-  signal Stage2_Out : std_logic_vector(wordsize - 1 downto 0);
-  signal Stage3_In : std_logic_vector(wordsize - 1 downto 0);
-  signal Stage3_Out : std_logic_vector(wordsize - 1 downto 0);
-  signal Stage4_In : std_logic_vector(wordsize - 1 downto 0);
-  signal Stage4_Out : std_logic_vector(wordsize - 1 downto 0);
+  signal Stage2_In : std_logic_vector(wordsize - 1 downto 0) := (others => '0');
+  signal Stage2_Out : std_logic_vector(wordsize - 1 downto 0) := (others => '0');
+  signal Stage3_In : std_logic_vector(wordsize - 1 downto 0) := (others => '0');
+  signal Stage3_Out : std_logic_vector(wordsize - 1 downto 0) := (others => '0');
+  signal Stage4_In : std_logic_vector(wordsize - 1 downto 0) := (others => '0');
+  signal Stage4_Out : std_logic_vector(wordsize - 1 downto 0) := (others => '0');
 begin
 
   Stage1_Pre_Xin <= R_slv sll 2;
@@ -158,8 +158,13 @@ begin
    process(CLK)
    begin
     if rising_edge(CLK) then
-      Yd_n_min_1 <= Yd;
-      Yout <= Yd;
+      if (Reset = '0') then
+        Yd_n_min_1 <= (others => '0');
+        Yout <= (others => '0');
+      else
+        Yd_n_min_1 <= Yd;
+        Yout <= Yd;
+      end if;
     end if;
   end process;
 
