@@ -30,7 +30,7 @@ SRCS := AnsiEscape.vhd \
 all: | work
 	$(MAKE) wblock_tb
 
-moogfilterstage_tb: | work $(SRCS)
+wblock_tb: | work $(SRCS)
 	$(GHDL) -a $(GHDLFLAGS) AnsiEscape.vhd
 	$(GHDL) -a $(GHDLFLAGS) FixedLib.vhd
 	$(GHDL) -a $(GHDLFLAGS) AdderSubtracter.vhd
