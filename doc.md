@@ -1,6 +1,6 @@
 ---
 fontfamily: roboto-serif
-
+monofont: "DejaVu Sans Mono"
 geometry:
 - top=.5in
 - bottom=.5in
@@ -165,45 +165,36 @@ The NCO was shown to accurately produce the required notes in the bass clef.
 │   ├── MoogFilter_TB.vhd       # test bench for top level moog ladder filter
 │   ├── WBlock.vhd              # W block source file (see above)
 │   ├── WBlock_TB.vhd           # W block test bench
-│   ├── conf.gtkw               # ignore (for dev)
-│   ├── conf_1.gtkw             # ignore (for dev)
-│   ├── e~moogfilter_tb.o       # ignore
-│   ├── filter_process.py*      # ignore
 │   ├── make_filter.sh*         # shell script to build and run the filter
-│   ├── make_stage.sh*          # shell script to
-│   ├── matlab/
-│   ├── moogfilter_tb*
+│   ├── make_stage.sh*          # shell script to build and run the filter stage test bench
+│   ├── matlab/                 # matlab dev files
 │   ├── moogfilterstage_conf.gtkw
 │   ├── moogfilterstage_tb.vcd
 │   ├── out.txt
-│   ├── q1_14_filter.py*
+│   ├── q1_14_filter.py*        # GTKwave filter to show fixed point numbers
 │   └── work/
 ├── filter_diagram.jpg  
-├── gcc-12.5.0/  # GCC source code (for compiling GHDL 7.0.0 from source)
+├── gcc-12.5.0/                 # GCC source code (for compiling GHDL 7.0.0 from source)
 |
 ├── nco/
-│   ├── INSTRUCTIONS.md
-│   ├── Makefile*
-│   ├── e~nco_tb.o
-│   ├── nco.vhd*
-│   ├── nco_tb*
-│   ├── nco_tb.vhd*
-│   ├── out.txt
-│   ├── sawtooth.txt
-│   ├── sawtooth_freq_domain/
-│   ├── sawtooth_time_domain/
-│   ├── square.txt
-│   ├── square_freq_domain/
-│   ├── square_time_domain/
-│   ├── time_util.vhd
-│   ├── verify_nco.py*          # iterations of python script used 
+│   ├── INSTRUCTIONS.md         # build instructions
+│   ├── Makefile*               # makefile
+│   ├── nco.vhd*                # NCO source file
+│   ├── nco_tb.vhd*             # NCO test bench
+│   ├── out.txt                 # output words from test bench
+│   ├── sawtooth.txt            # sawtooth only output words
+│   ├── sawtooth_freq_domain/   # frequency domain plots
+│   ├── sawtooth_time_domain/   # time domain plots
+│   ├── square.txt              # square wave only output words
+│   ├── square_freq_domain/     # frequency domain plots
+│   ├── square_time_domain/     # time domain plots
+│   ├── time_util.vhd           # ???
+│   ├── verify_nco.py*          # iterations of python script used to verify NCO
 │   ├── verify_nco.py.copy*
 │   ├── verify_nco_1.py
 │   ├── verify_nco_2.py
 │   ├── verify_nco_3.py
-│   └── work/
-├── sub.md
-├── unusued/
+├── sub.md                      # submission doc
 ├── w_block.jpg
 └── w_block_digital.jpg
 ```
