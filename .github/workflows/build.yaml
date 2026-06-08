@@ -1,4 +1,4 @@
-yamlname: Build GHDL and OSVVM
+name: Build GHDL and OSVVM
 
 on:
   push:
