@@ -183,11 +183,63 @@ Finally, the filter stages were wired together in the `moogfilter` directory
  
 The NCO was shown to accurately produce the required notes in the bass clef.
 
-<insert matplotlib pic here>
+The WBlock and MoogFilterStage were tested against a few values, and were found
+to produce the expected outputs.
+
+Unfortunately, the output of MoogFilter oscillated between a valid value
+and an undefined value. I suspect this is a result of $y_d[n - 1]$ being fed
+into the input of the first stage. Despite adding a synchronous reset signal
+and defaulting all clocked signals to zero, the issue was not fixed.
+
+Please see the `screenshots` directory for images of the waveforms (including
+their fixed point representations). Aditionally, please see the structure and
+location of the `txt` and `vcd` below.
 
 ## Source Code structure
 
+Each block has it's own directory and Makefile. Each directory can be compiled using
+The main directories are
+
+- `cordic`   - used for the simulation (tested rigorously with OSVVM).
+    - Main files:
+        - `CordicStage.vhd` - a single stage of the cordic
+        - `Cordic.vhd`      - 16 stage Q1.14 cordic implementation
+        - `Cordic_TB.vhd`   - OSVVM test bench
+    - Artifacts
+        `cordic/cordic_sim.log` - Cordic OSVVM verification for all valid functions and inputs
+- `nco`      - used for the NCO simulation
+    - Main files:
+        - `NCO.vhd`     - 16-bit numerically controlled oscillator outputting square and sawtooth waves
+        - `NCO_TB.vhd`  - Test bench that sweeps over frequencies in the bass clef
+    - Artifacts:
+        `nco/nco_sim.txt`         - runtime output (what freq/wave is being tested)
+        `nco/sawtooth.txt`        - sawtooth wave amplitudes over the frequency range
+        `nco/square.txt`          - square wave amplitudes over the frequency range
+        `nco/verify_nco.txt`      - harmonic analysis output
+        `nco/work/NCO_TB.vcd`     - value change dump file for test bench
+- `wblock`   - used for the wblock simulation (a part of the filter implementation)
+    - Main files:
+        - `WBlock.vhd`     - A block that computes tanh(1/2Vt*y[n])
+        - `WBlock_TB.vhd`  - Test bench that checks a few inputs for validity
+    - Artifacts:
+        - `wblock/work/wblock_tb.vcd` - value change dump file
+- `moogfilterstage` - used for the simulation of a single stage of the moog ladder filter
+    - Main files:
+        - `MoogFilterStage.vhd` - implementation of a single filter stage
+        - `MoogFilterStage_TB.vhd` - test bench that inputs a few values
+    - Artifacts:
+        - `moogfilterstage/work/moogfilterstaeg_tb.vcd` - value change dump file
+
+- `moogfilter` - used for the top level moog filter simulation
 ```
+
+Each simulation generates a VCD file that can be viewed in GTKwave (they are also
+saved as artifacts in github actions). The NCO and CORDIC test benches also generate
+text output fails related to their analysis. The CORDIC simulation shows the expected
+and actual values, while NCO simulation outputs the amplitude output at each time
+step, as well as a file that 
+
+
 ./
 ├── Dockerfile # dockerfile used for reproducible github build (doesn't work currently)
 ├── Makefile   # top level makefile (doesn't work currently)
