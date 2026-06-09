@@ -26,6 +26,8 @@ diode ladder would.
 
 ### Basic Blocks
 
+![Hardware 303 Block diagram](block_diagram.jpg){width=70%}
+
 The Roland TB-303 consists of the following blocks:
     - Oscillator: a voltage-controlled oscillator that creates a square or
                  sawtooth wave in the bass clef range.
@@ -48,9 +50,9 @@ That is,
     - A NCA (numerically controlled amplifier) that prescales the output according
       to the desired settting.
 
-<insert picture of ADSR here>
+<!-- <insert picture of ADSR here>
 <insert picture of blocks>
-<insert schematic of TB-303 ???>
+<insert schematic of TB-303 ???> -->
 
 In this project, an NCO and filter were implemented and tested in VHDL.
 
@@ -99,9 +101,11 @@ where $x[n]$ is the output of NCO, and $y_d$ is the output of the filter. We nat
 see that this design lends itself to a multistage design, in which we can generically
 define a filter stage, as well as a generic "W block" that computes  $W_{\{a,b,c\}}(n)$.
 
+\newpage
+
 The W block can be represented as follows:
 
-![W block diagram](w_block.jpg)
+![W block diagram](w_block.jpg){width=70%}
 
 Pratically, we implement division and mulitplication with the CORDIC as well.
 Aditionally, since the CORDIC can only calculate sinh, and cosh, we need a final
@@ -120,12 +124,14 @@ we would be able to represent the voltage range of original TB-303, which is
 most on the order of 10s of voltages.
 
 Aditionally, the CORDIC was modified so that multiple instantiations of it
-are possible, and was made fully synchronous to simplify prototyping. This
-will severely limit speed, but since our timinig requirement is relatively large,
+are possible, and was made fully concurrent to simplify prototyping. This
+will severely limit speed, but since our timing requirement is relatively large,
 we are okay with this trade off.
 
-
 The filter as a whole can be represented using the following diagram.
+
+![Moog filter diagram](filter_diagram.png)
+
 
 ## Results
  

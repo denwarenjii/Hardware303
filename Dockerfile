@@ -42,7 +42,6 @@ COPY moogfilter .
 RUN make run
 
 FROM scratch AS export
-FROM scratch AS export
 COPY --from=project /Hardware303/nco/ ./nco/
 COPY --from=project /Hardware303/cordic/ ./cordic/
 COPY --from=project /Hardware303/wblock/ ./wblock/
