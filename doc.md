@@ -77,6 +77,10 @@ are what we expect for a square and sawtooth wave. A perfect square wave will
 contain only odd harmonics, while a sawtooth wave will include all harmonics.
 The harmonics of both will decay at a rate of 6dB / octave. 
 
+The NCO was implemented in the `nco` directory, specifically in `nco.vhd` and VHD,
+and a test bench `nco_tb.vhd` as well as an accompanying python script rigorously
+tested it's functionality over our desired frequency range.
+
 ### Filter
 
 A resonant low-pass filter is simply a low-pass filter that produces 
@@ -128,11 +132,53 @@ are possible, and was made fully concurrent to simplify prototyping. This
 will severely limit speed, but since our timing requirement is relatively large,
 we are okay with this trade off.
 
+The WBlock was implemented in the `wblock` directory, specifically in
+`WBlock.vhd`, and a test bench confirmed it to be working with a few simple
+values.
+
 The filter as a whole can be represented using the following diagram.
 
 ![Moog filter diagram](filter_diagram.png)
 
+From this, we see that the filter can be naturally broken up into roughly 5
+stages:
 
+![Moog filter diagram (in stages)](filter_parts_diagram.png)
+
+We see that the middle 3 stages are identical, and the 5th stage is quite similar
+to the others, although it does not have have a W block at its output like the
+other stages. We can thus create the following filter stage, to be reused
+in stages 2 - 5, with some modification.
+
+![Moog filter stage](filter_stage.jpg){width=60%}
+
+Here, we mark the input to the stage as some arbitrary $a[n]$, but conceretly,
+this input is
+
+- $tanh(\frac{1}{2Vt}(x[n] -4ry_d[n - 1]))$ for stage 2, where $Vt$ is the thermal
+  voltage of a transistor, $x[n]$ is the filter input (the output of NCO), R is
+  the simulated resistance value from the analog Moog filter, and C is the simulated
+  capacitance value from the analog filter.
+
+- $W_{a}[n]$ for Stage 3
+- $W_{b}[n]$ for Stage 4
+- $W_{c}[n]$ for Stage 5
+
+Also note that although Stage 5 was drawn differently in the diagram, it is functionally
+equivalent to putting a W block after the $y_d[n]$ output, and putting a delay element
+in between the final W block and the first adder of the stage. The WBlock at the
+end of this stage will caculate $tanh(\frac{y_d[n]}{2Vt})$, which becomes
+$tanh(\frac{y_d[n - 1]}{2Vt})$ after going through a delay element. We must note
+however, that the final output of the filter is $y_d$, and not the output of the
+final WBlock. For this reason, each stage was made to output both $y_{a, b, c, d}[n]$
+respectively, as well as the output of its final W Block.
+
+The filter stage was implemented in the `moogfilterstage` directory, specifically
+in `MoogFilterStage.vhd`. Its functionality was tested against a few input
+values, and it was shown to produce the expected values.
+
+Finally, the filter stages were wired together in the `moogfilter` directory
+(in the `MoogFilter.vhd` file). 
 ## Results
  
 The NCO was shown to accurately produce the required notes in the bass clef.
