@@ -207,6 +207,7 @@ The main directories are
         - `Cordic_TB.vhd`   - OSVVM test bench
     - Artifacts
         `cordic/cordic_sim.log` - Cordic OSVVM verification for all valid functions and inputs
+
 - `nco`      - used for the NCO simulation
     - Main files:
         - `NCO.vhd`     - 16-bit numerically controlled oscillator outputting square and sawtooth waves
@@ -217,12 +218,14 @@ The main directories are
         `nco/square.txt`          - square wave amplitudes over the frequency range
         `nco/verify_nco.txt`      - harmonic analysis output
         `nco/work/NCO_TB.vcd`     - value change dump file for test bench
+
 - `wblock`   - used for the wblock simulation (a part of the filter implementation)
     - Main files:
         - `WBlock.vhd`     - A block that computes tanh(1/2Vt*y[n])
         - `WBlock_TB.vhd`  - Test bench that checks a few inputs for validity
     - Artifacts:
         - `wblock/work/wblock_tb.vcd` - value change dump file
+
 - `moogfilterstage` - used for the simulation of a single stage of the moog ladder filter
     - Main files:
         - `MoogFilterStage.vhd` - implementation of a single filter stage
@@ -231,15 +234,21 @@ The main directories are
         - `moogfilterstage/work/moogfilterstaeg_tb.vcd` - value change dump file
 
 - `moogfilter` - used for the top level moog filter simulation
-```
+    - Main files:
+        - `MoogFilterStage.vhd` - implementation of a single filter stage
+        - `MoogFilterStage_TB.vhd` - test bench that inputs a few values
+    - Artifacts:
+        - `moogfilterstage/work/moogfilterstaeg_tb.vcd` - value change dump file
 
 Each simulation generates a VCD file that can be viewed in GTKwave (they are also
 saved as artifacts in github actions). The NCO and CORDIC test benches also generate
 text output fails related to their analysis. The CORDIC simulation shows the expected
 and actual values, while NCO simulation outputs the amplitude output at each time
-step, as well as a file that 
+step, as well as a file that shows the harmonics for each frequency.
 
+## Entire project structure
 
+```
 ./
 ├── Dockerfile # dockerfile used for reproducible github build (doesn't work currently)
 ├── Makefile   # top level makefile (doesn't work currently)
@@ -305,20 +314,42 @@ step, as well as a file that
 
 ## Building
 
-Ideally:
+The entire build succeeds in the Github actions page. Alternatively one could
+do
 
 ```
-$ cd filter
-$ ./make_filter.sh
+$ docker buildx build --target export --output . .
 ```
 
-but this will most likely not work for others because
+provided they have docker and docker build-x installed.
 
-1) I used GHDL 7.0.0 (compiled from source), which has breaking changes
-   when compared to versions of GHDL packages with distros
+Also you could just run `make run` in each directory even with an older version
+of ghdl-gcc or ghdl-llvm (I tested it locally with GHDL 5.1.1).
 
-2) My OSVVM build directory is hard coded there
+## Results and Reflection
 
-I am working on getting it to build in github.
+There are many steps needed to make this a much better project that is more
+similar to the analog TB-303, more hardware efficient, and easier to understand.
+
+Firstly, the bug in the implemented filter should be fixed, so that the filter
+as a whole is functional. The individual parts should then be wired together,
+and the desgin as a whole should be tested on commercially available simulators
+that can also be used to synthesize designs, such as Xilinx Vivado or Xilinx ISE.
+
+There are also too many instances of the Cordic, which is unnecessary for 
+simple tasks such as addition, multiplication, or division. Dedicated dividers
+and multipliers would greatly reduce the gate count and complexity of this
+project.
+
+A more ideal filter would be derived using numerical analysis of an actual
+diode ladder filter instead of a BJT based ladder filter. Although the two
+sound similar, the TB-303's filter's dynamics are altered by it's use of diodes.
+This would complicate the design however, since there is much less information
+available on diode ladder filters.
+
+The design should be synthesized for an FPGA, and the hardware for a usable
+user interface should be implemented. This would include keys, a DAC, and a
+speaker. It would also be possible to implement my own Delta-Sigma DAC for this.
+
 
 [1] https://dafx.de/paper-archive/2004/P_061.PDF
